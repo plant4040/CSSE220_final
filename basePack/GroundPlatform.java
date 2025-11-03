@@ -11,6 +11,7 @@ public class GroundPlatform {
      this.y = y;
      this.width = width;
      this.height = height;
+     
  }
 
  public void draw(Graphics g) {
