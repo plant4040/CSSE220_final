@@ -5,14 +5,20 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import basePack.KeyHandler;
 
 public class GamePanel extends JPanel implements Runnable{
+	private List<GroundPlatform> platforms;
 	
 	public GamePanel() {
+		
+		
+		
 		
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		this.setBackground(Color.white);
@@ -25,8 +31,24 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setVisible(true);
 		/*Jpanel panel1 = new Jpanel();
 		panel1.setOpaque(false);*/
+		
+		
+		
+		// makes platforms
+		 platforms = new ArrayList<>();
 
+	        // Test platforms
+	      platforms.add(new GroundPlatform(50, 500, 200, 30));
+	      platforms.add(new GroundPlatform(300, 400, 250, 30));
+	      platforms.add(new GroundPlatform(600, 300, 150, 30));
+
+	      
 		}
+	
+	
+	
+	
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		//closes game if you hit escape
@@ -37,7 +59,13 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		//draw stuff here or add components to draw here-------------------------------
+
 		
+		
+        // Draws platforms + sets their color
+        for (GroundPlatform platform : platforms) {
+            platform.draw(g);
+        }
 		
 		
 		g2d.dispose();
