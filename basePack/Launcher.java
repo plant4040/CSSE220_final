@@ -10,7 +10,7 @@ public class Launcher {
 		JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setResizable(true);
+        //window.setResizable(true);
         window.setTitle("Kernel's finger lickin' adventure");
 
 	    GamePanel gamePanel = new GamePanel();
@@ -20,13 +20,13 @@ public class Launcher {
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 
-	    window.pack();
+//	    window.pack();
 
 	    window.setLocationRelativeTo(null);
 	    window.setVisible(true);
 
 	    gamePanel.startGameThread();
-	    
+	    //does close stuff (is nice)
 	    window.addWindowListener(new WindowAdapter() {
 	    	public void windowClosing(WindowEvent e) {
 	    		window.dispose();
