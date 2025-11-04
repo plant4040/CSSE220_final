@@ -14,7 +14,7 @@ import basePack.KeyHandler;
 
 public class GamePanel extends JPanel implements Runnable{
 	private List<GroundPlatform> platforms;
-	
+	private ArrayList<Entity> things= new ArrayList<Entity>();
 	public GamePanel() {
 		
 		
@@ -39,10 +39,11 @@ public class GamePanel extends JPanel implements Runnable{
 		 platforms = new ArrayList<>();
 
 	        // Test platforms
-	      platforms.add(new GroundPlatform(0, windowHeight/2, windowWidth, 75));
+	      platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-
+	      things.add(new Player(60, 600));
+	      
 	      
 		}
 	
@@ -59,16 +60,19 @@ public class GamePanel extends JPanel implements Runnable{
 		}  
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
-		//draw stuff here or add components to draw here-------------------------------
+		//draw stuff here or draw components here-------------------------------
 
 		
+		for(Entity i: things) {
+	    	  i.update();
+	    	  i.draw(g2d);
+	      }
+		//System.out.println("5");
 		
         // Draws platforms + sets their color
         for (GroundPlatform platform : platforms) {
-            platform.draw(g);
-            
+            platform.draw(g2d);
         }
-		
 		
 		g2d.dispose();
 	}
