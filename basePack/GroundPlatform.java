@@ -40,7 +40,21 @@ public class GroundPlatform {
          }
  }
  
+ public int getX() {
+	 return x;
+ }
  
+ public int getY() {
+	 return y;
+ }
+ 
+ public int getHeight() {
+	 return height;
+ }
+ 
+ public int getWidth() {
+	 return width;
+ }
  
  
  public void draw(Graphics g) {
