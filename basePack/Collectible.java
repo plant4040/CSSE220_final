@@ -39,6 +39,7 @@ public class Collectible extends Entity{
 	         } catch (IOException e) {
 	         	spriteLoaded = false;
 	         }
+	     
 	 }
 	
 
