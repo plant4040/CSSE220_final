@@ -1,5 +1,7 @@
 package basePack;
 
+import java.util.ArrayList;
+
 /**
  * @author Evan McElwain
  * Represents player in game
@@ -12,8 +14,8 @@ public class Player extends Entity {
 	private static final int JUMPACCELERATION = 50;
 	private static final int MAXHORIZONTALVELO = 20;
 	private static final int MAXVERTICALVELO = 100;
-	private static final int PLAYERHEIGHT = 0;
-	private static final int PLAYERWIDTH = 0;
+	private static final int PLAYERHEIGHT = 20;
+	private static final int PLAYERWIDTH = 10;
 	
 	public Player(int xPos,int yPos) {
 		this.xPos = xPos;
@@ -44,9 +46,9 @@ public class Player extends Entity {
 		yVelo += JUMPACCELERATION;
 	}
 	
-	public void update() {
+	public void update(ArrayList<GroundPlatform> platforms) {
 		//update Positions
-//		if (notInBlockX(xPos + xVelo)) {
+//		if (notInBlockX(xPos + xVelo,yPos)) {
 //			xPos += xVelo;
 //		}
 //		else {
@@ -81,5 +83,11 @@ public class Player extends Entity {
 //		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground
 
 	}
+	
+//	private boolean notInBlockX(int x, int y, ArrayList<GroundPlatform> platforms) {
+//		for (GroundPlatform g : platforms) {
+//			if (x )
+//		}
+//	}
 	
 }
