@@ -66,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
         // Draws platforms + sets their color
         for (GroundPlatform platform : platforms) {
             platform.draw(g);
+            
         }
 		
 		
