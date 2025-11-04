@@ -15,6 +15,10 @@ import basePack.KeyHandler;
 public class GamePanel extends JPanel implements Runnable{
 	private List<GroundPlatform> platforms;
 	
+	private List<Collectible> collectables;
+	
+	int collectableSize  = 45;
+	
 	public GamePanel() {
 		
 		
@@ -42,8 +46,14 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(0, windowHeight/2, windowWidth, 75));
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-
 	      
+	      
+	      
+	      
+	     collectables = new ArrayList<>();
+	     collectables.add(new Collectible(40, 500,collectableSize, collectableSize));
+	     collectables.add(new Collectible(40, 400,collectableSize, collectableSize));
+	     collectables.add(new Collectible(40, 300,collectableSize, collectableSize));
 		}
 	
 	
@@ -63,13 +73,23 @@ public class GamePanel extends JPanel implements Runnable{
 
 		
 		
-        // Draws platforms + sets their color
+        // Uses draw method in GroundPlatform class to make platforms
         for (GroundPlatform platform : platforms) {
             platform.draw(g);
             
         }
+        
+        
+        for (Collectible collectable: collectables) {
+
+			collectable.drawCollectible(g);
+            
+        }
 		
-		
+        
+        
+        
+        
 		g2d.dispose();
 	}
 	//gets screensize
