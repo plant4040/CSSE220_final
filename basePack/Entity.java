@@ -2,6 +2,7 @@ package basePack;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 
 /**
  * @author Evan McElwain
@@ -24,7 +25,7 @@ public abstract class Entity {
 	/*protected int[] getAcc() {
 		return new int[]{xAcc,yAcc};
 	}*/
-	protected void update() {
+	protected void update(List<GroundPlatform> platforms) {
 		xPos+=xVelo;
 		yPos+=yVelo;
 		//xVelo+=xAcc;

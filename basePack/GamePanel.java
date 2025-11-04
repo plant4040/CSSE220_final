@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Timer;
 
 import javax.swing.JPanel;
 
@@ -15,6 +16,7 @@ import basePack.KeyHandler;
 public class GamePanel extends JPanel implements Runnable{
 	private List<GroundPlatform> platforms;
 	private ArrayList<Entity> things= new ArrayList<Entity>();
+	private  Timer timer;
 	public GamePanel() {
 		
 		
@@ -43,12 +45,17 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
 	      things.add(new Player(60, 600));
-	      
+	      timer = new Timer(30, e -> tick());
 	      
 		}
 	
 	
-	
+	public void tick() {
+		for (Entity e : things) {
+			e.update(platforms);
+		}
+		repaint();
+	}
 	
 	
 	@Override
@@ -64,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		
 		for(Entity i: things) {
-	    	  i.update();
+	    	  //i.update(platforms);
 	    	  i.draw(g2d);
 	      }
 		//System.out.println("5");
