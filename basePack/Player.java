@@ -53,12 +53,8 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public void update(List<GroundPlatform> platforms) {
-		xPos += xVelo;
-		yVelo-=GACCELERATION;
-		
-		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground
-		
+	public void update(List<GroundPlatform> platforms) {	
+		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
 
 		//update Positions
 		if (notInBlock(xPos + xVelo,yPos,platforms)) {
@@ -76,11 +72,11 @@ public class Player extends Entity {
 		if (notInBlock(xPos,yPos + yVelo,platforms)) {
 			yPos += yVelo;
 			//apply gravity;
-			if (yVelo - GACCELERATION < -MAXVERTICALVELO) {
-				yVelo = -MAXVERTICALVELO;
+			if (yVelo + GACCELERATION > MAXVERTICALVELO) {
+				yVelo = MAXVERTICALVELO;
 			}
 			else {
-				yVelo -= GACCELERATION;
+				yVelo += GACCELERATION;
 			}
 		}
 		else {
@@ -93,7 +89,6 @@ public class Player extends Entity {
 			yVelo = 0;
 			//don't need to apply gravity because on the ground
 		}
-		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground
 
 	}
 	
@@ -115,7 +110,7 @@ public class Player extends Entity {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(xPos-XPLAYERSIZE/2, yPos-YPLAYERSIZE/2, XPLAYERSIZE, YPLAYERSIZE);
+		g.fillRect(xPos, yPos, XPLAYERSIZE, YPLAYERSIZE);
 	}
 
 }

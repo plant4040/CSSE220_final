@@ -44,9 +44,11 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-	      things.add(new Player(60, 600));
+	      //Adds our Player
+	      things.add(new Player(60, 0));
+	      //Creates and Starts Timer
 	      timer = new Timer(30, e -> tick());
-	      
+	      timer.start();
 		}
 	
 	
