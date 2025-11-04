@@ -1,5 +1,8 @@
 package basePack;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * @author Evan McElwain
  * Represents player in game
@@ -13,6 +16,8 @@ public class Player extends Entity {
 	private static final int MAXHORIZONTALVELO = 20;
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
+	private static final int XPLAYERSIZE = 10;
+	private static final int YPLAYERSIZE = 20;
 	
 	public Player(int xPos,int yPos) {
 		this.xPos = xPos;
@@ -45,8 +50,13 @@ public class Player extends Entity {
 	
 	public void update() {
 		xPos += xVelo;
+		yVelo-=GACCELERATION;
+		
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground
 		
 	}
-	
+	public void draw(Graphics g) {
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(xPos-XPLAYERSIZE/2, yPos-YPLAYERSIZE/2, XPLAYERSIZE, YPLAYERSIZE);
+	}
 }
