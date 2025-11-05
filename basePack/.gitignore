@@ -6,4 +6,8 @@
 /Player.class
 /Collectible.class
 /GroundPlatform.class
+<<<<<<< HEAD
+/GamePanel$1.class
+=======
 /Enemy.class
+>>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final.git

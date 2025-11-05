@@ -15,11 +15,15 @@ public class Player extends Entity {
 	//all subject to change
 	private static final int XACCELERATION = 2;
 	private static final int GACCELERATION = 1;
+<<<<<<< HEAD
 	private static final int JUMPACCELERATION = -12;
 	private static final int MAXHORIZONTALVELO = 5;
+=======
+	private static final int JUMPACCELERATION = 25;
+	private static final int MAXHORIZONTALVELO = 10;
+>>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
 
 	private static final int MAXVERTICALVELO = 100;
-	private boolean onGround;
 	private static final int XPLAYERSIZE = 10;
 	private static final int YPLAYERSIZE = 20;
 	
@@ -48,6 +52,7 @@ public class Player extends Entity {
 		}
 	}
 	
+<<<<<<< HEAD
 	public void jump() {
 		if(onGround) {
 			yVelo += JUMPACCELERATION;
@@ -56,6 +61,12 @@ public class Player extends Entity {
 	
 	public void stop() {
 		xVelo = 0;
+=======
+	public void jump(List<GroundPlatform>  platforms) {
+		if (onGround(platforms)) {
+			yVelo -= JUMPACCELERATION;
+		}
+>>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
 	}
 	
 	@Override
@@ -122,6 +133,17 @@ public class Player extends Entity {
 	public void draw(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(xPos, yPos, XPLAYERSIZE, YPLAYERSIZE);
+	}
+	
+	public boolean onGround(List<GroundPlatform> platforms) {
+		for(GroundPlatform g : platforms) {
+			if ((yPos + YPLAYERSIZE) == g.getY()) {
+				if (((xPos + (XPLAYERSIZE/2)) > g.getX()) && ((xPos + (XPLAYERSIZE/2)) < (g.getX() + g.getWidth()))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
