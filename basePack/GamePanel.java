@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private List<GroundPlatform> platforms;
 	private ArrayList<Entity> things= new ArrayList<Entity>();
 	private  Timer timer;
+	private Player player;
 	public GamePanel() {
 		
 		
@@ -35,7 +36,8 @@ public class GamePanel extends JPanel implements Runnable{
 		/*Jpanel panel1 = new Jpanel();
 		panel1.setOpaque(false);*/
 		
-		
+		setFocusable(true);
+		requestFocusInWindow();
 		
 		// makes platforms
 		 platforms = new ArrayList<>();
@@ -45,9 +47,11 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
 	      //Adds our Player
-	      things.add(new Player(60, 0));
+	      this.player = new Player(60, 0);
+	      things.add(player);
 	      //Adds an Enemy
 	      things.add(new Enemy(200,0));
+	      things.add(new Enemy(400,0));
 	      //Creates and Starts Timer
 	      timer = new Timer(30, e -> tick());
 	      timer.start();
@@ -55,6 +59,19 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	
 	public void tick() {
+		requestFocusInWindow();
+		if(k.checkKey("w")) {
+			player.jump();
+		}
+		if(k.checkKey("a") && !k.checkKey("d")) {
+			player.moveLeft();
+		}
+		if(k.checkKey("d") && !k.checkKey("a")) {
+			player.moveRight();
+		}
+		if((!k.checkKey("d") && !k.checkKey("a")) || (k.checkKey("d") && k.checkKey("a"))) {
+			player.stop();
+		}
 		for (Entity e : things) {
 			e.update(platforms);
 		}

@@ -13,10 +13,10 @@ import java.awt.Graphics;
 public class Player extends Entity {
 	
 	//all subject to change
-	private static final int XACCELERATION = 5;
+	private static final int XACCELERATION = 2;
 	private static final int GACCELERATION = 1;
-	private static final int JUMPACCELERATION = 50;
-	private static final int MAXHORIZONTALVELO = 20;
+	private static final int JUMPACCELERATION = -12;
+	private static final int MAXHORIZONTALVELO = 5;
 
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
@@ -30,7 +30,7 @@ public class Player extends Entity {
 		this.yVelo = 0;
 	}
 	
-	public void MoveLeft() {
+	public void moveLeft() {
 		if (xVelo - XACCELERATION < -MAXHORIZONTALVELO) {
 			xVelo = -MAXHORIZONTALVELO;
 		}
@@ -39,7 +39,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void MoveRight() {
+	public void moveRight() {
 		if (xVelo+XACCELERATION > MAXHORIZONTALVELO) {
 			xVelo = MAXHORIZONTALVELO;
 		}
@@ -48,14 +48,20 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void Jump() {
-		yVelo += JUMPACCELERATION;
+	public void jump() {
+		if(onGround) {
+			yVelo += JUMPACCELERATION;
+		}
+	}
+	
+	public void stop() {
+		xVelo = 0;
 	}
 	
 	@Override
 	public void update(List<GroundPlatform> platforms) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
-
+		
 		//update Positions
 		if (notInBlock(xPos + xVelo,yPos,platforms)) {
 			xPos += xVelo;
@@ -70,6 +76,7 @@ public class Player extends Entity {
 			xVelo = 0;
 		}
 		if (notInBlock(xPos,yPos + yVelo,platforms)) {
+			onGround = false;
 			yPos += yVelo;
 			//apply gravity;
 			if (yVelo + GACCELERATION > MAXVERTICALVELO) {
@@ -80,6 +87,10 @@ public class Player extends Entity {
 			}
 		}
 		else {
+			onGround = true;
+			if(yVelo < 0) {
+				yPos += yVelo;
+			}
 			//find the last place not in a block
 			while (notInBlock(xPos,yPos,platforms)) {
 				yPos++;
