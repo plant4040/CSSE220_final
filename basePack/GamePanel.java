@@ -59,20 +59,14 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-<<<<<<< HEAD
 	      //Adds our Player
 	      this.player = new Player(60, 0);
-=======
 	      //Adds our Player
->>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
 	      things.add(player);
 	      //Adds an Enemy
-<<<<<<< HEAD
 	      things.add(new Enemy(200,0));
 	      things.add(new Enemy(400,0));
-=======
 	      things.add(new Enemy(200,0));
->>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
 	      //Creates and Starts Timer
 	      timer = new Timer(30, e -> tick());
 	      timer.start();

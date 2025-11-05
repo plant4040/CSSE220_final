@@ -15,13 +15,12 @@ public class Player extends Entity {
 	//all subject to change
 	private static final int XACCELERATION = 2;
 	private static final int GACCELERATION = 1;
-<<<<<<< HEAD
+
 	private static final int JUMPACCELERATION = -12;
 	private static final int MAXHORIZONTALVELO = 5;
-=======
-	private static final int JUMPACCELERATION = 25;
-	private static final int MAXHORIZONTALVELO = 10;
->>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
+	private boolean onGround;
+
+
 
 	private static final int MAXVERTICALVELO = 100;
 	private static final int XPLAYERSIZE = 10;
@@ -52,7 +51,7 @@ public class Player extends Entity {
 		}
 	}
 	
-<<<<<<< HEAD
+
 	public void jump() {
 		if(onGround) {
 			yVelo += JUMPACCELERATION;
@@ -61,12 +60,13 @@ public class Player extends Entity {
 	
 	public void stop() {
 		xVelo = 0;
-=======
+	}
+	
 	public void jump(List<GroundPlatform>  platforms) {
 		if (onGround(platforms)) {
 			yVelo -= JUMPACCELERATION;
 		}
->>>>>>> branch 'main' of https://github.com/plant4040/CSSE220_final
+
 	}
 	
 	@Override
