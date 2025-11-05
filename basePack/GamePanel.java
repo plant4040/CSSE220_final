@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Timer;
@@ -17,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private List<GroundPlatform> platforms;
 	private ArrayList<Entity> things= new ArrayList<Entity>();
 	private  Timer timer;
+	private Player player;
 	public GamePanel() {
 		
 		
@@ -26,7 +29,18 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		this.setBackground(Color.white);
 		this.setDoubleBuffered(true);
-		this.addKeyListener(k);
+	    player = new Player(150, 0);
+	    this.addKeyListener(k);
+		this.addKeyListener(new KeyAdapter() {
+	        @Override
+	        public void keyPressed(KeyEvent e) {
+	            switch (e.getKeyCode()) {
+	                case KeyEvent.VK_LEFT  -> player.moveLeft();
+	                case KeyEvent.VK_RIGHT -> player.moveRight();
+	                case KeyEvent.VK_UP -> player.jump(platforms);
+	            }
+	        }
+	        });
 		//this.addMouseListener(m);
 		//this.addMouseMotionListener(mm);
 		this.setFocusable(true);
@@ -44,14 +58,16 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	      platforms.add(new GroundPlatform(300, 400, 250, 30));
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-	      //Adds our Player
-	      things.add(new Player(60, 0));
+	      things.add(player);
 	      //Creates and Starts Timer
 	      timer = new Timer(30, e -> tick());
 	      timer.start();
 		}
 	
-	
+	/**
+	 * Updates all entities
+	 * 
+	 */
 	public void tick() {
 		for (Entity e : things) {
 			e.update(platforms);

@@ -15,11 +15,10 @@ public class Player extends Entity {
 	//all subject to change
 	private static final int XACCELERATION = 5;
 	private static final int GACCELERATION = 1;
-	private static final int JUMPACCELERATION = 50;
-	private static final int MAXHORIZONTALVELO = 20;
+	private static final int JUMPACCELERATION = 25;
+	private static final int MAXHORIZONTALVELO = 10;
 
 	private static final int MAXVERTICALVELO = 100;
-	private boolean onGround;
 	private static final int XPLAYERSIZE = 10;
 	private static final int YPLAYERSIZE = 20;
 	
@@ -30,7 +29,7 @@ public class Player extends Entity {
 		this.yVelo = 0;
 	}
 	
-	public void MoveLeft() {
+	public void moveLeft() {
 		if (xVelo - XACCELERATION < -MAXHORIZONTALVELO) {
 			xVelo = -MAXHORIZONTALVELO;
 		}
@@ -39,7 +38,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void MoveRight() {
+	public void moveRight() {
 		if (xVelo+XACCELERATION > MAXHORIZONTALVELO) {
 			xVelo = MAXHORIZONTALVELO;
 		}
@@ -48,8 +47,10 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void Jump() {
-		yVelo += JUMPACCELERATION;
+	public void jump(List<GroundPlatform>  platforms) {
+		if (onGround(platforms)) {
+			yVelo -= JUMPACCELERATION;
+		}
 	}
 	
 	@Override
@@ -111,6 +112,17 @@ public class Player extends Entity {
 	public void draw(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(xPos, yPos, XPLAYERSIZE, YPLAYERSIZE);
+	}
+	
+	public boolean onGround(List<GroundPlatform> platforms) {
+		for(GroundPlatform g : platforms) {
+			if ((yPos + YPLAYERSIZE) == g.getY()) {
+				if (((xPos + (XPLAYERSIZE/2)) > g.getX()) && ((xPos + (XPLAYERSIZE/2)) < (g.getX() + g.getWidth()))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
