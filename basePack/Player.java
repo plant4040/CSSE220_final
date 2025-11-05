@@ -64,7 +64,7 @@ public class Player extends Entity {
 	
 	public void jump(List<GroundPlatform>  platforms) {
 		if (onGround(platforms)) {
-			yVelo -= JUMPACCELERATION;
+			yVelo += JUMPACCELERATION;
 		}
 
 	}

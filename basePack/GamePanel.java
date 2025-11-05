@@ -77,21 +77,25 @@ public class GamePanel extends JPanel implements Runnable{
 	 * 
 	 */
 	public void tick() {
-		requestFocusInWindow();
-		if(k.checkKey("w")) {
-			player.jump();
-		}
-		if(k.checkKey("a") && !k.checkKey("d")) {
-			player.moveLeft();
-		}
-		if(k.checkKey("d") && !k.checkKey("a")) {
-			player.moveRight();
-		}
-		if((!k.checkKey("d") && !k.checkKey("a")) || (k.checkKey("d") && k.checkKey("a"))) {
-			player.stop();
-		}
-		for (Entity e : things) {
-			e.update(platforms);
+//		requestFocusInWindow();
+//		if(k.checkKey("w")) {
+//			player.jump();
+//		}
+//		if(k.checkKey("a") && !k.checkKey("d")) {
+//			player.moveLeft();
+//		}
+//		if(k.checkKey("d") && !k.checkKey("a")) {
+//			player.moveRight();
+//		}
+//		if((!k.checkKey("d") && !k.checkKey("a")) || (k.checkKey("d") && k.checkKey("a"))) {
+//			player.stop();
+//		}
+//		for (Entity e : things) {
+//			e.update(platforms);
+//		}
+		
+		for (Entity b: things) {
+			b.update(platforms);
 		}
 		repaint();
 	}
