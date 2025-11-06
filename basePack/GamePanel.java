@@ -16,31 +16,29 @@ import javax.swing.JPanel;
 import basePack.KeyHandler;
 
 public class GamePanel extends JPanel implements Runnable{
+	
 	private List<GroundPlatform> platforms;
 	private ArrayList<Entity> things= new ArrayList<Entity>();
 	private  Timer timer;
 	private Player player;
+	private Graphics2D g2d;
+	private Dimension screenRes = Toolkit.getDefaultToolkit().getScreenSize();
+	final int windowWidth = (int)screenRes.getWidth();
+	final int windowHeight = (int)screenRes.getHeight();
+	Thread gameThread;
+	
 	public GamePanel() {
-		
-		
-		
-		
-		
+
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		this.setBackground(Color.white);
 		this.setDoubleBuffered(true);
-	    player = new Player(150, 0);
-	    this.addKeyListener(k);
-		this.addKeyListener(new KeyAdapter() {
-	        @Override
-	        public void keyPressed(KeyEvent e) {
-	            switch (e.getKeyCode()) {
-	                case KeyEvent.VK_LEFT  -> player.moveLeft();
-	                case KeyEvent.VK_RIGHT -> player.moveRight();
-	                case KeyEvent.VK_UP -> player.jump(platforms);
-	            }
-	        }
-	        });
+	    
+		//Initialize player
+		player = new Player(150, 0);
+	    
+		//Add controls
+		buildKeys();
+		
 		//this.addMouseListener(m);
 		//this.addMouseMotionListener(mm);
 		this.setFocusable(true);
@@ -53,31 +51,32 @@ public class GamePanel extends JPanel implements Runnable{
 		requestFocusInWindow();
 		
 		// makes platforms
-		 platforms = new ArrayList<>();
+		platforms = new ArrayList<>();
 
 	        // Test platforms
-	      platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
-	      platforms.add(new GroundPlatform(300, 400, 250, 30));
-	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-	      //Adds our Player
-	      this.player = new Player(60, 0);
-	      //Adds our Player
-	      things.add(player);
-	      //Adds an Enemy
-	      things.add(new Enemy(200,0));
-	      things.add(new Enemy(400,0));
-	      things.add(new Enemy(200,0));
-	      //Creates and Starts Timer
-	      timer = new Timer(30, e -> tick());
-	      timer.start();
-		}
+	    platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
+	    platforms.add(new GroundPlatform(300, 400, 250, 30));
+	    platforms.add(new GroundPlatform(600, 300, 150, 30));
+	    
+	    //Adds our Player to list of entities
+	    things.add(player);
+	    
+	    //Adds an Enemy
+	    things.add(new Enemy(200,0));
+	    things.add(new Enemy(400,0));
+	    things.add(new Enemy(300,0));
+	    
+	    //Creates and Starts Timer
+	    timer = new Timer(30, e -> tick());
+	    timer.start();
+	}
 	
 	/**
 	 * Updates all entities
 	 * 
 	 */
 	public void tick() {
-//		requestFocusInWindow();
+		requestFocusInWindow();
 //		if(k.checkKey("w")) {
 //			player.jump();
 //		}
@@ -94,20 +93,24 @@ public class GamePanel extends JPanel implements Runnable{
 //			e.update(platforms);
 //		}
 		
-		for (Entity b: things) {
-			b.update(platforms);
+		for (Entity e: things) {
+			e.update(platforms);
 		}
 		repaint();
+	}
+	
+	//Quits game if escape is pressed
+	private void quit() {
+		if (gameThread != null) {
+			gameThread.interrupt();
+			gameThread = null;
+		}
 	}
 	
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		//closes game if you hit escape
-		if(k.checkKey("escape") && gameThread!=null){
-			gameThread.interrupt();
-			gameThread = null;
-		}  
+		
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		//draw stuff here or draw components here-------------------------------
@@ -117,7 +120,6 @@ public class GamePanel extends JPanel implements Runnable{
 	    	  //i.update(platforms);
 	    	  i.draw(g2d);
 	      }
-		//System.out.println("5");
 		
         // Draws platforms + sets their color
         for (GroundPlatform platform : platforms) {
@@ -126,22 +128,19 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		g2d.dispose();
 	}
-	//gets screensize
-	Dimension screenRes = Toolkit.getDefaultToolkit().getScreenSize();
-	final int windowWidth = (int)screenRes.getWidth();
-	final int windowHeight = (int)screenRes.getHeight();
+
 	
-	Graphics2D g2d;
-	KeyHandler k = new KeyHandler();
+
 	//MouseHandler m = new MouseHandler();
 	//MouseMotionHandler mm = new MouseMotionHandler();
 	//if we need mouseHandler i can probably write a better implementation
-	Thread gameThread;
+
 	//sets up the thread for the game
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
+	
 	//synchronizes events in game using the concept of "delta time" so that if you lower framerate you won't slow other functions of the game.
 	@Override
 	public void run() {
@@ -156,5 +155,20 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		//when game ends, game ends.
 		System.exit(0);
+	}
+	
+	//adds controls
+	private void buildKeys() {
+		this.addKeyListener(new KeyAdapter() {
+	        @Override
+	        public void keyPressed(KeyEvent e) {
+	            switch (e.getKeyCode()) {
+	            	case KeyEvent.VK_ESCAPE -> quit();
+	                case KeyEvent.VK_LEFT  -> player.moveLeft();
+	                case KeyEvent.VK_RIGHT -> player.moveRight();
+	                case KeyEvent.VK_UP -> player.jump(platforms);
+	            }
+	        }
+	        });
 	}
 }
