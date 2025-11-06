@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		
 		
-		
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		this.setBackground(Color.white);
 		this.setDoubleBuffered(true);
@@ -49,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
 	      platforms.add(new GroundPlatform(600, 300, 150, 30));
 	      
 	      
+	     
 	      
 	      
 	     collectables = new ArrayList<>();
