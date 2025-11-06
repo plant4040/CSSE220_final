@@ -13,13 +13,13 @@ public class Enemy extends Entity {
 	private static final int GACCELERATION = 1;
 	private static final int MAXHORIZONTALVELO = 15;
 	private static final int MAXVERTICALVELO = 100;
-	private static final int XENEMYSIZE = 10;
-	private static final int YENEMYSIZE = 20;
 	private boolean onGround;
 	
-	public Enemy(int xPos, int yPos) {
+	public Enemy(int xPos, int yPos, int height, int width) {
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.height = height;
+		this.width = width;
 		this.xVelo = 5;
 		this.yVelo = 0;
 	}
@@ -32,8 +32,8 @@ public class Enemy extends Entity {
 		//check if ground is in front to see if enemy should turn around
 		if(xVelo < 0) {
 			for (GroundPlatform g : platforms) {
-				if (((x - XENEMYSIZE + 1) < (g.getX() + g.getWidth())) && ((x - XENEMYSIZE + 1) > (g.getX()))) {
-					if(((y + YENEMYSIZE + 1) < (g.getY() + g.getHeight())) && ((y + YENEMYSIZE + 1) > (g.getY()))) {
+				if (((x - width + 1) < (g.getX() + g.getWidth())) && ((x - width + 1) > (g.getX()))) {
+					if(((y + height + 1) < (g.getY() + g.getHeight())) && ((y + height + 1) > (g.getY()))) {
 						return true;
 					}
 				}
@@ -41,8 +41,8 @@ public class Enemy extends Entity {
 		}
 		else {
 			for (GroundPlatform g : platforms) {
-				if (((x + 2 * XENEMYSIZE - 1) < (g.getX() + g.getWidth())) && ((x + 2 * XENEMYSIZE - 1) > (g.getX()))) {
-					if(((y + YENEMYSIZE + 1) < (g.getY() + g.getHeight())) && ((y + YENEMYSIZE + 1) > (g.getY()))) {
+				if (((x + 2 * width - 1) < (g.getX() + g.getWidth())) && ((x + 2 * width - 1) > (g.getX()))) {
+					if(((y + height + 1) < (g.getY() + g.getHeight())) && ((y + height + 1) > (g.getY()))) {
 						return true;
 					}
 				}
@@ -98,8 +98,8 @@ public class Enemy extends Entity {
 	
 	private boolean notInBlock(int x, int y, List<GroundPlatform> platforms) {
 		for (GroundPlatform g : platforms) {
-			for (int i=0;i<=XENEMYSIZE;i++) {
-				for (int j=0;j<=YENEMYSIZE;j++) {
+			for (int i=0;i<=width;i++) {
+				for (int j=0;j<=height;j++) {
 					if (((x+i) < (g.getX() + g.getWidth())) && ((x+i) > (g.getX()))) {
 						if ((y+j) < (g.getY() + g.getHeight()) && ((y+j) > (g.getY()))) {
 							return false;
@@ -113,6 +113,6 @@ public class Enemy extends Entity {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(xPos, yPos, XENEMYSIZE, YENEMYSIZE);
+		g.fillRect(xPos, yPos, width, height);
 	}
 }
