@@ -18,7 +18,6 @@ public class Player extends Entity {
 
 	private static final int JUMPACCELERATION = -12;
 	private static final int MAXHORIZONTALVELO = 5;
-	private boolean onGround;
 
 
 
@@ -33,6 +32,9 @@ public class Player extends Entity {
 		this.yVelo = 0;
 	}
 	
+	/**
+	 * updates player's velocity if left arrow is clicked
+	 */
 	public void moveLeft() {
 		if (xVelo - XACCELERATION < -MAXHORIZONTALVELO) {
 			xVelo = -MAXHORIZONTALVELO;
@@ -42,6 +44,10 @@ public class Player extends Entity {
 		}
 	}
 	
+	
+	/**
+	 * updates player's velocity if right arrow is clicked
+	 */
 	public void moveRight() {
 		if (xVelo+XACCELERATION > MAXHORIZONTALVELO) {
 			xVelo = MAXHORIZONTALVELO;
@@ -51,17 +57,18 @@ public class Player extends Entity {
 		}
 	}
 	
-
-	public void jump() {
-		if(onGround) {
-			yVelo += JUMPACCELERATION;
-		}
-	}
 	
+	/**
+	 * brings player to a stop horizontally
+	 */
 	public void stop() {
 		xVelo = 0;
 	}
 	
+	/**
+	 * updates vertical velocity if up button is pressed and the player is on the ground
+	 * @param platforms to check if on the ground
+	 */
 	public void jump(List<GroundPlatform>  platforms) {
 		if (onGround(platforms)) {
 			yVelo += JUMPACCELERATION;
@@ -69,6 +76,10 @@ public class Player extends Entity {
 
 	}
 	
+	/**
+	 * Updates players position and movement after being called by timer,
+	 * handles vertical and horizontal collisions with blocks
+	 */
 	@Override
 	public void update(List<GroundPlatform> platforms) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
@@ -87,7 +98,6 @@ public class Player extends Entity {
 			xVelo = 0;
 		}
 		if (notInBlock(xPos,yPos + yVelo,platforms)) {
-			onGround = false;
 			yPos += yVelo;
 			//apply gravity;
 			if (yVelo + GACCELERATION > MAXVERTICALVELO) {
@@ -98,7 +108,6 @@ public class Player extends Entity {
 			}
 		}
 		else {
-			onGround = true;
 			if(yVelo < 0) {
 				yPos += yVelo;
 			}
@@ -114,6 +123,13 @@ public class Player extends Entity {
 
 	}
 	
+	/**
+	 * checks if a player is inside a block for a given position to handle collisions
+	 * @param x
+	 * @param y
+	 * @param platforms
+	 * @return whether the player is not in a block
+	 */
 	private boolean notInBlock(int x, int y, List<GroundPlatform> platforms) {
 		for (GroundPlatform g : platforms) {
 			for (int i=0;i<=XPLAYERSIZE;i++) {
@@ -129,12 +145,19 @@ public class Player extends Entity {
 		return true;
 	}
 	
-
+	/**
+	 * draws player
+	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(xPos, yPos, XPLAYERSIZE, YPLAYERSIZE);
 	}
 	
+	/**
+	 * checks if player is on the ground
+	 * @param platforms
+	 * @return whether player is on the ground
+	 */
 	public boolean onGround(List<GroundPlatform> platforms) {
 		for(GroundPlatform g : platforms) {
 			if ((yPos + YPLAYERSIZE) == g.getY()) {
