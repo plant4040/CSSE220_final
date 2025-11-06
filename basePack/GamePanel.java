@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 	    
 		//Initialize player
-		player = new Player(150, 0);
+		player = new Player(150, 0, 10, 20);
 	    
 		//Add controls
 		buildKeys();
@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 		// makes platforms
 		platforms = new ArrayList<>();
 
-	        // Test platforms
+	    // Adds platforms
 	    platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	    platforms.add(new GroundPlatform(300, 400, 250, 30));
 	    platforms.add(new GroundPlatform(600, 300, 150, 30));
@@ -62,9 +62,9 @@ public class GamePanel extends JPanel implements Runnable{
 	    things.add(player);
 	    
 	    //Adds an Enemy
-	    things.add(new Enemy(200,0));
-	    things.add(new Enemy(400,0));
-	    things.add(new Enemy(300,0));
+	    things.add(new Enemy(200,0,20,10));
+	    things.add(new Enemy(400,0,20,10));
+	    things.add(new Enemy(300,0,20,10));
 	    
 	    //Creates and Starts Timer
 	    timer = new Timer(30, e -> tick());

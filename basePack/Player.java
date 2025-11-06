@@ -22,12 +22,12 @@ public class Player extends Entity {
 
 
 	private static final int MAXVERTICALVELO = 100;
-	private static final int XPLAYERSIZE = 10;
-	private static final int YPLAYERSIZE = 20;
 	
-	public Player(int xPos,int yPos) {
+	public Player(int xPos,int yPos, int width, int height) {
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.width = width;
+		this.height = height;
 		this.xVelo = 0;
 		this.yVelo = 0;
 	}
@@ -132,8 +132,8 @@ public class Player extends Entity {
 	 */
 	private boolean notInBlock(int x, int y, List<GroundPlatform> platforms) {
 		for (GroundPlatform g : platforms) {
-			for (int i=0;i<=XPLAYERSIZE;i++) {
-				for (int j=0;j<=YPLAYERSIZE;j++) {
+			for (int i=0;i<=width;i++) {
+				for (int j=0;j<=height;j++) {
 					if (((x+i) < (g.getX() + g.getWidth())) && ((x+i) > (g.getX()))) {
 						if ((y+j) < (g.getY() + g.getHeight()) && ((y+j) > (g.getY()))) {
 							return false;
@@ -150,7 +150,7 @@ public class Player extends Entity {
 	 */
 	public void draw(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(xPos, yPos, XPLAYERSIZE, YPLAYERSIZE);
+		g.fillRect(xPos, yPos, width, height);
 	}
 	
 	/**
@@ -160,8 +160,8 @@ public class Player extends Entity {
 	 */
 	public boolean onGround(List<GroundPlatform> platforms) {
 		for(GroundPlatform g : platforms) {
-			if ((yPos + YPLAYERSIZE) == g.getY()) {
-				if (((xPos + (XPLAYERSIZE/2)) > g.getX()) && ((xPos + (XPLAYERSIZE/2)) < (g.getX() + g.getWidth()))) {
+			if ((yPos + height) == g.getY()) {
+				if (((xPos + (width/2)) > g.getX()) && ((xPos + (width/2)) < (g.getX() + g.getWidth()))) {
 					return true;
 				}
 			}

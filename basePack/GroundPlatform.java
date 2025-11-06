@@ -15,13 +15,6 @@ public class GroundPlatform {
 	private int x, y, width, height;
 	Color color = Color.RED;
 	private BufferedImage sprite;
- 
- /*
- * 
- * 
- * 
- * 
- */
 	boolean spriteLoaded = false;
  
  public GroundPlatform(int x, int y, int width, int height) {
@@ -66,21 +59,13 @@ public class GroundPlatform {
  	
  	if (spriteLoaded) {
  		g.drawImage(sprite, drawX, drawY, drawWidth,drawHeight, null );
- 	} else {
- 		  g.setColor(color);
-
  	}
+ 	else {
+ 		g.setColor(color);
+ 		g.fillRect(drawX, drawY, drawWidth, drawHeight);
+
+    }
    
  }
- 
- 
- 
- 
-// Current stand in for Color 
-// public void draw(Graphics g) {
-//     g.setColor(Color.RED);
-//     g.fillRect(x, y, width, height);
-// }
-//}
 
 }

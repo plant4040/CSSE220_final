@@ -6,10 +6,14 @@ package basePack;
  */
 public class Collectible extends Entity{
 	
+	
+	
 	public Collectible(int xPos,int yPos) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.xVelo = 0;
 		this.yVelo = 0;
 	}
+	
+	
 }
