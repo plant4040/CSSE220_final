@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Timer;
 
 import javax.swing.JPanel;
 
@@ -15,12 +18,6 @@ import basePack.KeyHandler;
 public class GamePanel extends JPanel implements Runnable{
 	
 	private List<GroundPlatform> platforms;
-<<<<<<< HEAD
-	
-	private List<Collectible> collectables;
-	
-	int collectableSize  = 45;
-=======
 	private ArrayList<Entity> things= new ArrayList<Entity>();
 	private  Timer timer;
 	private Player player;
@@ -29,24 +26,20 @@ public class GamePanel extends JPanel implements Runnable{
 	final int windowWidth = (int)screenRes.getWidth();
 	final int windowHeight = (int)screenRes.getHeight();
 	Thread gameThread;
->>>>>>> refs/remotes/origin/main
-	
+	KeyHandler k;
 	public GamePanel() {
 
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
 		this.setBackground(Color.white);
 		this.setDoubleBuffered(true);
-<<<<<<< HEAD
-		this.addKeyListener(k);
-=======
 	    
 		//Initialize player
 		player = new Player(150, 0, 10, 20);
 	    
 		//Add controls
-		buildKeys();
+		//buildKeys();
+		k = new 
 		
->>>>>>> refs/remotes/origin/main
 		//this.addMouseListener(m);
 		//this.addMouseMotionListener(mm);
 		this.setFocusable(true);
@@ -55,27 +48,12 @@ public class GamePanel extends JPanel implements Runnable{
 		/*Jpanel panel1 = new Jpanel();
 		panel1.setOpaque(false);*/
 		
-		
+		setFocusable(true);
+		requestFocusInWindow();
 		
 		// makes platforms
 		platforms = new ArrayList<>();
 
-<<<<<<< HEAD
-	        // Test platforms
-	      platforms.add(new GroundPlatform(0, windowHeight/2, windowWidth, 75));
-	      platforms.add(new GroundPlatform(300, 400, 250, 30));
-	      platforms.add(new GroundPlatform(600, 300, 150, 30));
-	      
-	      
-	     
-	      
-	      
-	     collectables = new ArrayList<>();
-	     collectables.add(new Collectible(40, 500,collectableSize, collectableSize));
-	     collectables.add(new Collectible(40, 400,collectableSize, collectableSize));
-	     collectables.add(new Collectible(40, 300,collectableSize, collectableSize));
-		}
-=======
 	    // Adds platforms
 	    platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
 	    platforms.add(new GroundPlatform(300, 400, 250, 30));
@@ -93,12 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 	    timer = new Timer(30, e -> tick());
 	    timer.start();
 	}
->>>>>>> refs/remotes/origin/main
 	
-<<<<<<< HEAD
-	
-	
-=======
 	/**
 	 * Updates all entities
 	 * 
@@ -126,7 +99,6 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		repaint();
 	}
->>>>>>> refs/remotes/origin/main
 	
 	//Quits game if escape is pressed
 	private void quit() {
@@ -142,34 +114,19 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
-		//draw stuff here or add components to draw here-------------------------------
+		//draw stuff here or draw components here-------------------------------
 
 		
-<<<<<<< HEAD
-=======
 		for(Entity i: things) {
 	    	  //i.update(platforms);
 	    	  i.draw(g2d);
 	      }
->>>>>>> refs/remotes/origin/main
 		
-        // Uses draw method in GroundPlatform class to make platforms
+        // Draws platforms + sets their color
         for (GroundPlatform platform : platforms) {
-            platform.draw(g);
-            
-        }
-        
-        
-        for (Collectible collectable: collectables) {
-
-			collectable.drawCollectible(g);
-            
+            platform.draw(g2d);
         }
 		
-        
-        
-        
-        
 		g2d.dispose();
 	}
 
@@ -194,6 +151,9 @@ public class GamePanel extends JPanel implements Runnable{
 			int delta_time = (int)((time - last_time)/1000000);
 			if(delta_time >= 10){
 			      last_time = time;
+			      if(k.checkKey()) {
+			    	  
+			      }
 			      repaint();
 			}
 		}
@@ -202,10 +162,10 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	//adds controls
-	private void buildKeys() {
+	/*private void buildKeys() {
 		this.addKeyListener(new KeyAdapter() {
 	        @Override
-	        public void keyPressed(KeyEvent e) {
+	        /*public void keyPressed(KeyEvent e) {
 	            switch (e.getKeyCode()) {
 	            	case KeyEvent.VK_ESCAPE -> quit();
 	                case KeyEvent.VK_LEFT  -> player.moveLeft();
@@ -214,5 +174,6 @@ public class GamePanel extends JPanel implements Runnable{
 	            }
 	        }
 	        });
-	}
+	}*/
+	
 }

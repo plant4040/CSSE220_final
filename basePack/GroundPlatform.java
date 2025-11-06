@@ -1,18 +1,15 @@
 package basePack;
 
-
 import java.awt.Graphics;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 
 import java.awt.Color;
-/**
- * @author Dallen Burks
- * Represents the platform goal of the game
- */
+
 public class GroundPlatform {
  
 	private int x, y, width, height;
@@ -36,11 +33,23 @@ public class GroundPlatform {
          }
  }
  
+ public int getX() {
+	 return x;
+ }
+ 
+ public int getY() {
+	 return y;
+ }
+ 
+ public int getHeight() {
+	 return height;
+ }
+ 
+ public int getWidth() {
+	 return width;
+ }
  
  
- /*
-  * draw method for ground platform
-  */
  public void draw(Graphics g) {
  	
  	int drawX = x;

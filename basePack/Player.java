@@ -1,5 +1,14 @@
 package basePack;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyListener;
+
+import basePack.KeyHandler;
+
 /**
  * @author Evan McElwain
  * Represents player in game
@@ -7,25 +16,15 @@ package basePack;
 public class Player extends Entity {
 	
 	//all subject to change
-<<<<<<< HEAD
-	private static final int XACCELERATION = 5;
+	private static final int XACCELERATION = 20;
 	private static final int GACCELERATION = 10;
-	private static final int JUMPACCELERATION = 50;
-	private static final int MAXHORIZONTALVELO = 20;
-	private static final int MAXVERTICALVELO = 100;
-	private static final int PLAYERHEIGHT = 0;
-	private static final int PLAYERWIDTH = 0;
-=======
-	private static final int XACCELERATION = 2;
-	private static final int GACCELERATION = 1;
 
-	private static final int JUMPACCELERATION = -12;
-	private static final int MAXHORIZONTALVELO = 5;
+	private static final int JUMPACCELERATION = -120;
+	private static final int MAXHORIZONTALVELO = 50;
 
+	private KeyHandler k;
 
-
-	private static final int MAXVERTICALVELO = 100;
->>>>>>> refs/remotes/origin/main
+	private static final int MAXVERTICALVELO = 1000;
 	
 	public Player(int xPos,int yPos, int width, int height) {
 		this.xPos = xPos;
@@ -34,16 +33,13 @@ public class Player extends Entity {
 		this.height = height;
 		this.xVelo = 0;
 		this.yVelo = 0;
+		this.k=new KeyHandler();
 	}
 	
-<<<<<<< HEAD
-	public void MoveLeft() {
-=======
 	/**
 	 * updates player's velocity if left arrow is clicked
 	 */
 	public void moveLeft() {
->>>>>>> refs/remotes/origin/main
 		if (xVelo - XACCELERATION < -MAXHORIZONTALVELO) {
 			xVelo = -MAXHORIZONTALVELO;
 		}
@@ -52,15 +48,11 @@ public class Player extends Entity {
 		}
 	}
 	
-<<<<<<< HEAD
-	public void MoveRight() {
-=======
 	
 	/**
 	 * updates player's velocity if right arrow is clicked
 	 */
 	public void moveRight() {
->>>>>>> refs/remotes/origin/main
 		if (xVelo+XACCELERATION > MAXHORIZONTALVELO) {
 			xVelo = MAXHORIZONTALVELO;
 		}
@@ -69,16 +61,7 @@ public class Player extends Entity {
 		}
 	}
 	
-<<<<<<< HEAD
-	public void Jump() {
-		yVelo += JUMPACCELERATION;
-	}
-=======
->>>>>>> refs/remotes/origin/main
 	
-<<<<<<< HEAD
-	public void update() {
-=======
 	/**
 	 * brings player to a stop horizontally
 	 */
@@ -105,57 +88,29 @@ public class Player extends Entity {
 	public void update(List<GroundPlatform> platforms) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
 		
->>>>>>> refs/remotes/origin/main
 		//update Positions
-<<<<<<< HEAD
-//		if (notInBlockX(xPos + xVelo)) {
-//			xPos += xVelo;
-//		}
-//		else {
-//			//find the last place not in a block
-//			while (notInBlockX(xPos)) {
-//				xPos++;
-//			}
-//			xPos--;
-//			//sets velo to zero after collision with block
-//			xVelo = 0;
-//		}
-//		if (notInBlockY(yPos + yVelo)) {
-//			yPos += yVelo;
-//			//apply gravity;
-//			if (yVelo - GACCELERATION < -MAXVERTICALVELO) {
-//				yVelo = -MAXVERTICALVELO;
-//			}
-//			else {
-//				yVelo -= GACCELERATION;
-//			}
-//		}
-//		else {
-//			//find the last place not in a block
-//			while (notInBlockY(yPos)) {
-//				yPos++;
-//			}
-//			yPos--;
-//			//sets velo to zero after collision with block
-//			yVelo = 0;
-//			//don't need to apply gravity because on the ground
-//		}
-//		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground
-=======
-		if (notInBlock(xPos + xVelo,yPos,platforms)) {
-			xPos += xVelo;
+		if (notInBlock(xPos + xVelo/10,yPos,platforms)) {
+			xPos += xVelo/10;
+			if(!notInBlock(xPos + xVelo/10,yPos+2,platforms)) {
+				if(Math.abs(xVelo)-Math.abs(xVelo)/10>0) {		
+					xVelo=(int)((Math.abs(xVelo)-Math.abs(xVelo)/10)*xVelo/Math.abs(xVelo));
+				}else {
+					xVelo=0;
+				}
+			}
+			
 		}
 		else {
 			//find the last place not in a block
 			while (notInBlock(xPos,yPos,platforms)) {
-				xPos++;
+				xPos+=1;
 			}
-			xPos--;
+			xPos-=1;
 			//sets velo to zero after collision with block
 			xVelo = 0;
 		}
-		if (notInBlock(xPos,yPos + yVelo,platforms)) {
-			yPos += yVelo;
+		if (notInBlock(xPos,yPos + yVelo/10,platforms)) {
+			yPos += yVelo/10;
 			//apply gravity;
 			if (yVelo + GACCELERATION > MAXVERTICALVELO) {
 				yVelo = MAXVERTICALVELO;
@@ -166,21 +121,18 @@ public class Player extends Entity {
 		}
 		else {
 			if(yVelo < 0) {
-				yPos += yVelo;
+				yPos += yVelo/10;
 			}
 			//find the last place not in a block
 			while (notInBlock(xPos,yPos,platforms)) {
-				yPos++;
+				yPos+=1;
 			}
-			yPos--;
+			yPos-=1;
 			//sets velo to zero after collision with block
 			yVelo = 0;
 			//don't need to apply gravity because on the ground
 		}
->>>>>>> refs/remotes/origin/main
 
-<<<<<<< HEAD
-=======
 	}
 	
 	/**
@@ -203,11 +155,8 @@ public class Player extends Entity {
 			}
 		}
 		return true;
->>>>>>> refs/remotes/origin/main
 	}
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * draws player
 	 */
@@ -232,5 +181,4 @@ public class Player extends Entity {
 		return false;
 	}
 
->>>>>>> refs/remotes/origin/main
 }
