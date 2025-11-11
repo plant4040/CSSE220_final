@@ -2,6 +2,7 @@ package basePack;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +28,27 @@ public abstract class Entity {
 		return new int[]{xVelo,yVelo};
 	}
 	
+	public int getxPos() {
+		return xPos;
+	}
+	
+	public int getyPos() {
+		return yPos;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	/*protected int[] getAcc() {
 		return new int[]{xAcc,yAcc};
 	}*/
 	
-	protected void update(List<GroundPlatform> platforms) {
+	protected void update(List<GroundPlatform> platforms, ArrayList<Entity> things) {
 		xPos+=xVelo;
 		yPos+=yVelo;
 		//xVelo+=xAcc;

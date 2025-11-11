@@ -75,8 +75,8 @@ public class GamePanel extends JPanel implements Runnable{
 	    things.add(new Enemy(300,0,20,10));
 	    
 	    //Adds Collectibles
-	    things.add(new Collectible (50,windowHeight-125,50,50));
-	    things.add(new Collectible (400,windowHeight-125,50,50));
+	    things.add(new Collectible (50,windowHeight-125,100,100));
+	    things.add(new Collectible (400,windowHeight-125,100,100));
 	    
 //	    this.setLayout(new FlowLayout());
 //	    lives = 3;
@@ -114,7 +114,7 @@ public class GamePanel extends JPanel implements Runnable{
 //		}
 		
 		for (Entity e: things) {
-			e.update(platforms);
+			e.update(platforms, things);
 		}
 		repaint();
 	}
@@ -190,6 +190,7 @@ public class GamePanel extends JPanel implements Runnable{
 	                case KeyEvent.VK_LEFT  -> player.moveLeft();
 	                case KeyEvent.VK_RIGHT -> player.moveRight();
 	                case KeyEvent.VK_UP -> player.jump(platforms);
+	                case KeyEvent.VK_DOWN -> player.collect(things);
 	            }
 	        }
 	        });

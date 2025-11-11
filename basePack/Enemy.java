@@ -2,6 +2,7 @@ package basePack;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class Enemy extends Entity {
 	}
 	
 	@Override
-	public void update(List<GroundPlatform> platforms) {	
+	public void update(List<GroundPlatform> platforms,ArrayList<Entity> e) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
 
 		//update Positions

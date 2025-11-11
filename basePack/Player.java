@@ -19,9 +19,9 @@ public class Player extends Entity {
 	private static final int XACCELERATION = 20;
 	private static final int GACCELERATION = 10;
 
-	private static final int JUMPACCELERATION = -120;
+	private static final int JUMPACCELERATION = -400;
 	private static final int MAXHORIZONTALVELO = 50;
-
+	private static final int VERTICALKNOCKBACK = 40;
 	private KeyHandler k;
 
 	private static final int MAXVERTICALVELO = 1000;
@@ -84,8 +84,7 @@ public class Player extends Entity {
 	 * Updates players position and movement after being called by timer,
 	 * handles vertical and horizontal collisions with blocks
 	 */
-	@Override
-	public void update(List<GroundPlatform> platforms) {	
+	public void update(List<GroundPlatform> platforms, ArrayList<Entity> things) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
 		
 		//update Positions
@@ -131,6 +130,18 @@ public class Player extends Entity {
 			//sets velo to zero after collision with block
 			yVelo = 0;
 			//don't need to apply gravity because on the ground
+		}
+		
+		//Checks for collisions with enemy
+		if (inEnemy(things)) {
+			if (xVelo >= 0) {
+				xVelo = -MAXHORIZONTALVELO;
+				yVelo -= VERTICALKNOCKBACK;
+			}
+			else {
+				xVelo = MAXHORIZONTALVELO;
+			}
+			//Add code to update lives
 		}
 
 	}
@@ -180,5 +191,57 @@ public class Player extends Entity {
 		}
 		return false;
 	}
+	
+	/**
+	 * returns the coin to be collected if hitboxes overlap, otherwise returns null 
+	 * @param things
+	 */
+	public Entity inCollectible(ArrayList<Entity> es) {
+		for (Entity e : es) {
+			String type = e.getClass().getName();
+			if (type.equals("basePack.Collectible")) {
+				for (int i=0; i<width;i++) {
+					for (int j=0;j<height;j++) {
+						if ((xPos+i) <= (e.getxPos() + e.getWidth()) && (xPos+i) >= e.getxPos()){
+							if ((yPos+j) <= (e.getyPos() + e.getHeight()) && (yPos+j) >= e.getyPos()) {
+								return e;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Called when player tries to collect coin, removes coin when successful
+	 * @param things
+	 */
+	public void collect(ArrayList<Entity> things) {
+		Entity e = inCollectible(things);
+		if (!(e == null)) {
+			things.remove(e);
+			//Call whatever method is needed to update score
+		}
+	}
+	
+	public boolean inEnemy(ArrayList<Entity> things) {
+		for (Entity e: things) {
+			if (e.getClass().getName().equals("basePack.Enemy")){
+			for (int i=0;i<width;i++) {
+				for (int j=0;j<height;j++) {
+					if ((xPos+i) <= (e.getxPos() + e.getWidth()) && (xPos+i) >= e.getxPos()){
+						if ((yPos+j) <= (e.getyPos() + e.getHeight()) && (yPos+j) >= e.getyPos()) {
+							return true;
+						}
+					}
+				}
+			}
+			}
+		}
+		return false;
+	}
+	
 
 }

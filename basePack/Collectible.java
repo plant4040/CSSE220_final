@@ -34,6 +34,22 @@ public class Collectible extends Entity{
 	    }
 	}
 	
+	public int getxPos() {
+		return xPos;
+	}
+	
+	public int getyPos() {
+		return yPos;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public void draw(Graphics g) {
 	 	Graphics2D g2d = (Graphics2D) g;
 	 	if (spriteLoaded) {
