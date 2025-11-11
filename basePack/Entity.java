@@ -1,5 +1,9 @@
 package basePack;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.List;
+
 /**
  * @author Evan McElwain
  * 
@@ -10,8 +14,6 @@ public abstract class Entity {
 	protected int yPos;
 	protected int xVelo;
 	protected int yVelo;
-<<<<<<< HEAD
-=======
 	protected int height;
 	protected int width;
 	//protected int xAcc;
@@ -36,5 +38,4 @@ public abstract class Entity {
 		//yVelo+=yAcc;
 	}
 	public void draw(Graphics g) {}
->>>>>>> refs/remotes/origin/main
 }

@@ -6,3 +6,7 @@
 /Player.class
 /Collectible.class
 /GroundPlatform.class
+/GamePanel$1.class
+/ScorePanel.class
+/ScoreComponent.class
+/ScoreLabel.class

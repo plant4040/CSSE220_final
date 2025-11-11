@@ -4,8 +4,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Launcher {
+	
 	public static void main(String[] args) {
 		JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,8 +21,7 @@ public class Launcher {
 	    window.setUndecorated(true);
 	    window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-
-//	    window.pack();
+	    window.pack();
 
 	    window.setLocationRelativeTo(null);
 	    window.setVisible(true);

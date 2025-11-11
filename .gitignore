@@ -1,3 +1,6 @@
 *.class;
 /bin/
 /Player.class
+/GroundPlatform.class
+/Main.class
+/Panel.class
