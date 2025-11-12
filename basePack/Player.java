@@ -22,8 +22,10 @@ public class Player extends Entity {
 	private static final int JUMPACCELERATION = -400;
 	private static final int MAXHORIZONTALVELO = 50;
 	private static final int VERTICALKNOCKBACK = 40;
+	private static final int INVINCIBILITY = 60;
 	private KeyHandler k;
-
+	
+	private int iFrames;
 	private static final int MAXVERTICALVELO = 1000;
 	
 	public Player(int xPos,int yPos, int width, int height) {
@@ -34,6 +36,7 @@ public class Player extends Entity {
 		this.xVelo = 0;
 		this.yVelo = 0;
 		this.k=new KeyHandler();
+		iFrames = 0;
 	}
 	
 	/**
@@ -132,8 +135,10 @@ public class Player extends Entity {
 			//don't need to apply gravity because on the ground
 		}
 		
-		//Checks for collisions with enemy
-		if (inEnemy(things)) {
+		//Checks for collisions with enemy and whether invincible
+		if (inEnemy(things) && iFrames == 0) {
+			System.out.println("Collision");
+			iFrames = INVINCIBILITY;
 			if (xVelo >= 0) {
 				xVelo = -MAXHORIZONTALVELO;
 				yVelo -= VERTICALKNOCKBACK;
@@ -142,6 +147,11 @@ public class Player extends Entity {
 				xVelo = MAXHORIZONTALVELO;
 			}
 			//Add code to update lives
+		}
+		
+		//Updates iFrames
+		if (iFrames > 0) {
+			iFrames--;
 		}
 
 	}
