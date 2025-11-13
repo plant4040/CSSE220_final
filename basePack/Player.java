@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 
 import basePack.KeyHandler;
@@ -93,6 +94,12 @@ public class Player extends Entity {
 				// Horizontal movement and collision
 				if (notInBlock(xPos + xVelo/10, yPos, platforms)) {
 				    xPos += xVelo/10;
+				    if (xPos + width > ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth())) && xVelo > 0) {
+				    	xPos = 0;
+				    }
+				    else if (xPos < 0 && xVelo <0) {
+				    	xPos = ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()));
+				    }
 				    if(!notInBlock(xPos + xVelo/10, yPos+2, platforms)) {
 				        if(Math.abs(xVelo)-Math.abs(xVelo)/10 > 0) {		
 				            xVelo = (int)((Math.abs(xVelo)-Math.abs(xVelo)/10)*xVelo/Math.abs(xVelo));

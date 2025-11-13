@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable{
 	private Player player;
 	private Graphics2D g2d;
 	private Dimension screenRes = Toolkit.getDefaultToolkit().getScreenSize();
-	final int windowWidth = (int)screenRes.getWidth();
-	final int windowHeight = (int)screenRes.getHeight();
+	public final int windowWidth = (int)screenRes.getWidth();
+	public final int windowHeight = (int)screenRes.getHeight();
 	Thread gameThread;
 	KeyHandler k;
 	private int lives= 5;
