@@ -25,7 +25,8 @@ ArrayList<String> k = new ArrayList<String>();
 	public void keyTyped(KeyEvent e) {
 
 	}
-
+	
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int kc = e.getKeyCode();

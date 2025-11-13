@@ -28,10 +28,11 @@ public class GamePanel extends JPanel implements Runnable{
 	final int windowHeight = (int)screenRes.getHeight();
 	Thread gameThread;
 	KeyHandler k;
-	private int lives;
-	private int target;
-	private int score;
+	private int lives=5;
+	private int target=10;
+	private int score = 0;
 	JLabel label;
+
 	
 	
 	public GamePanel() {
@@ -41,11 +42,12 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 	    
 		//Initialize player
-		player = new Player(150, 0, 10, 20);
+		player = new Player(150, 0, 30, 60,this);
 	    
 		//Add controls
 		buildKeys();
-		//k = new keyHandler
+//		k = new KeyHandler();
+//		this.addKeyListener(k);
 		
 		//this.addMouseListener(m);
 		//this.addMouseMotionListener(mm);
@@ -70,9 +72,9 @@ public class GamePanel extends JPanel implements Runnable{
 	    things.add(player);
 	    
 	    //Adds an Enemy
-	    things.add(new Enemy(200,0,20,10));
-	    things.add(new Enemy(400,0,20,10));
-	    things.add(new Enemy(300,0,20,10));
+	    things.add(new Enemy(200,0,60,60));
+	    //things.add(new Enemy(400,0,60,60));
+	    //things.add(new Enemy(300,0,60,60));
 	    
 	    //Adds Collectibles
 	    things.add(new Collectible (50,windowHeight-125,100,100));
@@ -146,6 +148,13 @@ public class GamePanel extends JPanel implements Runnable{
             platform.draw(g2d);
         }
 		
+        g.setColor(Color.BLACK);
+		
+		g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+		g.drawString("Score: " + score, 10, 30);
+		g.drawString("Lives: " + lives, 10, 65);
+		g.drawString("Target: " + target, 10, 100);
+		
 		g2d.dispose();
 	}
 
@@ -194,6 +203,14 @@ public class GamePanel extends JPanel implements Runnable{
 	            }
 	        }
 	        });
+	}
+	
+	public void increaseScore(int amount) {
+	    score += amount;
+	}
+	
+	public void hit() {
+		lives--;
 	}
 	
 }

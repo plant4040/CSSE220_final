@@ -24,11 +24,11 @@ public class Player extends Entity {
 	private static final int VERTICALKNOCKBACK = 40;
 	private static final int INVINCIBILITY = 60;
 	private KeyHandler k;
-	
+	private GamePanel scoring;
 	private int iFrames;
 	private static final int MAXVERTICALVELO = 1000;
 	
-	public Player(int xPos,int yPos, int width, int height) {
+	public Player(int xPos,int yPos, int width, int height, GamePanel scoring) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.width = width;
@@ -37,6 +37,7 @@ public class Player extends Entity {
 		this.yVelo = 0;
 		this.k=new KeyHandler();
 		iFrames = 0;
+		this.scoring = scoring;
 	}
 	
 	/**
@@ -137,7 +138,7 @@ public class Player extends Entity {
 		
 		//Checks for collisions with enemy and whether invincible
 		if (inEnemy(things) && iFrames == 0) {
-			System.out.println("Collision");
+			scoring.hit();
 			iFrames = INVINCIBILITY;
 			if (xVelo >= 0) {
 				xVelo = -MAXHORIZONTALVELO;
@@ -232,7 +233,7 @@ public class Player extends Entity {
 		Entity e = inCollectible(things);
 		if (!(e == null)) {
 			things.remove(e);
-			//Call whatever method is needed to update score
+			scoring.increaseScore(1);
 		}
 	}
 	

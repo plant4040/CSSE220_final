@@ -2,8 +2,13 @@ package basePack;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 /**
  * @author seaworb
@@ -15,6 +20,8 @@ public class Enemy extends Entity {
 	private static final int MAXHORIZONTALVELO = 15;
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
+	private BufferedImage sprite;
+	boolean spriteLoaded = false;
 	
 	public Enemy(int xPos, int yPos, int height, int width) {
 		this.xPos = xPos;
@@ -23,6 +30,14 @@ public class Enemy extends Entity {
 		this.width = width;
 		this.xVelo = 5;
 		this.yVelo = 0;
+		
+		try {
+	         sprite = ImageIO.read(GroundPlatform.class.getResource("TheHamburglar.png"));
+	         spriteLoaded = true;
+	    } 
+		catch (IOException e) {
+	         spriteLoaded = false;
+	    }
 	}
 	
 	public void turnAround() {
@@ -113,7 +128,15 @@ public class Enemy extends Entity {
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(xPos, yPos, width, height);
+		Graphics2D g2d = (Graphics2D) g;
+	 	if (spriteLoaded) {
+	 		g.drawImage(sprite, xPos, yPos, width,height, null);
+	 	}
+	 	else {
+	 		g.setColor(Color.RED);
+			g.fillRect(xPos, yPos, width, height);
+
+	    }
+		
 	}
 }
