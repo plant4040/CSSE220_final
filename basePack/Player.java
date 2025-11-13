@@ -78,7 +78,7 @@ public class Player extends Entity {
 	 */
 	public void jump(List<GroundPlatform>  platforms) {
 		if (onGround(platforms)) {
-			yVelo += JUMPACCELERATION;
+			yVelo = JUMPACCELERATION;
 		}
 
 	}
@@ -132,12 +132,22 @@ public class Player extends Entity {
 						yPos += yVelo/10;
 					}
 					//find the last place not in a block
-					while (notInBlock(xPos,yPos,platforms)) {
-						yPos+=1;
+					if (yVelo>0) {
+						while (notInBlock(xPos,yPos,platforms)) {
+							yPos+=1;
+						}
+						yPos-=1;
+						//sets velo to zero after collision with block
+						yVelo = 0;
 					}
-					yPos-=1;
-					//sets velo to zero after collision with block
-					yVelo = 0;
+					else if (yVelo<0) { //Accounts for bumping head above
+						while (notInBlock(xPos,yPos,platforms)) {
+							yPos-=1;
+						}
+						yPos+=10;
+						//sets velo to zero after collision with block
+						yVelo = 0;
+					}
 					//don't need to apply gravity because on the ground
 				}
 		
