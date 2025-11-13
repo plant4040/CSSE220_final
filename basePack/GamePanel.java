@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 	    
 		//Initialize player
-		player = new Player(150, 800, 30, 60,this);
+		player = new Player(150, 800, 40, 60,this);
 	    
 		//Add controls
 		k = new KeyHandler();

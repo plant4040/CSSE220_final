@@ -3,10 +3,16 @@ package basePack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import basePack.KeyHandler;
 
@@ -27,6 +33,8 @@ public class Player extends Entity {
 	private GamePanel scoring;
 	private int iFrames;
 	private static final int MAXVERTICALVELO = 1000;
+	private BufferedImage sprite;
+	boolean spriteLoaded = false;
 	
 	public Player(int xPos,int yPos, int width, int height, GamePanel scoring) {
 		this.xPos = xPos;
@@ -38,6 +46,14 @@ public class Player extends Entity {
 		this.k=new KeyHandler();
 		iFrames = 0;
 		this.scoring = scoring;
+		
+		try {
+	         sprite = ImageIO.read(GroundPlatform.class.getResource("ColonelSanders.png")); // Once sprite is added change na
+	         spriteLoaded = true;
+	    } 
+		catch (IOException e) {
+	         spriteLoaded = false;
+	    }
 	}
 	
 	/**
@@ -205,8 +221,15 @@ public class Player extends Entity {
 	 * draws player
 	 */
 	public void draw(Graphics g) {
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(xPos, yPos, width, height);
+		Graphics2D g2d = (Graphics2D) g;
+	 	if (spriteLoaded) {
+	 		g.drawImage(sprite, xPos, yPos, width,height, null);
+	 	}
+	 	else {
+	 		g2d.setColor(Color.DARK_GRAY);
+	 		g2d.fillRect(xPos, yPos, width, height);
+
+	    }
 	}
 	
 	/**
