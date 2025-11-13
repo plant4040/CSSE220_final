@@ -89,66 +89,71 @@ public class Player extends Entity {
 	 */
 	public void update(List<GroundPlatform> platforms, ArrayList<Entity> things) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
-		
-		//update Positions
-		if (notInBlock(xPos + xVelo/10,yPos,platforms)) {
-			xPos += xVelo/10;
-			if(!notInBlock(xPos + xVelo/10,yPos+2,platforms)) {
-				if(Math.abs(xVelo)-Math.abs(xVelo)/10>0) {		
-					xVelo=(int)((Math.abs(xVelo)-Math.abs(xVelo)/10)*xVelo/Math.abs(xVelo));
+				// Horizontal movement and collision
+				// Horizontal movement and collision
+				if (notInBlock(xPos + xVelo/10, yPos, platforms)) {
+				    xPos += xVelo/10;
+				    if(!notInBlock(xPos + xVelo/10, yPos+2, platforms)) {
+				        if(Math.abs(xVelo)-Math.abs(xVelo)/10 > 0) {		
+				            xVelo = (int)((Math.abs(xVelo)-Math.abs(xVelo)/10)*xVelo/Math.abs(xVelo));
+				        } else {
+				            xVelo = 0;
+				        }
+				    }
+				}
+				else {   // <-- moved out of inner if, now correctly tied to the outer one
+				    // resolve collision depending on direction
+				    if (xVelo > 0) { // moving right
+				        while (notInBlock(xPos + 1, yPos, platforms)) {
+				            xPos++;
+				        }
+				        xPos--; // stop before entering block
+				    } else if (xVelo < 0) { // moving left
+				        while (notInBlock(xPos - 1, yPos, platforms)) {
+				            xPos--;
+				        }
+				        xPos++; // stop before entering block
+				    }
+				    xVelo = 0;
+				}
+		 
+				if (notInBlock(xPos,yPos + yVelo/10,platforms)) {
+					yPos += yVelo/10;
+					//apply gravity;
+					if (yVelo + GACCELERATION > MAXVERTICALVELO) {
+						yVelo = MAXVERTICALVELO;
+					}
+					else {
+						yVelo += GACCELERATION;
+					}
 				}
 				else {
-					xVelo=0;
+					if(yVelo < 0) {
+						yPos += yVelo/10;
+					}
+					//find the last place not in a block
+					while (notInBlock(xPos,yPos,platforms)) {
+						yPos+=1;
+					}
+					yPos-=1;
+					//sets velo to zero after collision with block
+					yVelo = 0;
+					//don't need to apply gravity because on the ground
 				}
-			}
-			
-		}
-		else {
-			//find the last place not in a block
-			while (notInBlock(xPos,yPos,platforms)) {
-				xPos+=1;
-			}
-			xPos-=1;
-			//sets velo to zero after collision with block
-			xVelo = 0;
-		}
-		if (notInBlock(xPos,yPos + yVelo/10,platforms)) {
-			yPos += yVelo/10;
-			//apply gravity;
-			if (yVelo + GACCELERATION > MAXVERTICALVELO) {
-				yVelo = MAXVERTICALVELO;
-			}
-			else {
-				yVelo += GACCELERATION;
-			}
-		}
-		else {
-			if(yVelo < 0) {
-				yPos += yVelo/10;
-			}
-			//find the last place not in a block
-			while (notInBlock(xPos,yPos,platforms)) {
-				yPos+=1;
-			}
-			yPos-=1;
-			//sets velo to zero after collision with block
-			yVelo = 0;
-			//don't need to apply gravity because on the ground
-		}
 		
-		//Checks for collisions with enemy and whether invincible
-		if (inEnemy(things) && iFrames == 0) {
-			scoring.hit();
-			iFrames = INVINCIBILITY;
-			if (xVelo >= 0) {
-				xVelo = -MAXHORIZONTALVELO;
-				yVelo -= VERTICALKNOCKBACK;
-			}
-			else {
-				xVelo = MAXHORIZONTALVELO;
-			}
-			//Add code to update lives
-		}
+				//Checks for collisions with enemy and whether invincible
+				if (inEnemy(things) && iFrames == 0) {
+					scoring.hit();
+					iFrames = INVINCIBILITY;
+					if (xVelo >= 0) {
+						xVelo = -MAXHORIZONTALVELO;
+						yVelo -= VERTICALKNOCKBACK;
+					}
+					else {
+						xVelo = MAXHORIZONTALVELO;
+					}
+					//Add code to update lives
+				}		
 		
 		//Updates iFrames
 		if (iFrames > 0) {
