@@ -97,7 +97,8 @@ public class Player extends Entity {
 			if(!notInBlock(xPos + xVelo/10,yPos+2,platforms)) {
 				if(Math.abs(xVelo)-Math.abs(xVelo)/10>0) {		
 					xVelo=(int)((Math.abs(xVelo)-Math.abs(xVelo)/10)*xVelo/Math.abs(xVelo));
-				}else {
+				}
+				else {
 					xVelo=0;
 				}
 			}

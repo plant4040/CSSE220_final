@@ -45,9 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
 		player = new Player(150, 0, 30, 60,this);
 	    
 		//Add controls
-		buildKeys();
-//		k = new KeyHandler();
-//		this.addKeyListener(k);
+		k = new KeyHandler();
+		this.addKeyListener(k);
 		
 		//this.addMouseListener(m);
 		//this.addMouseMotionListener(mm);
@@ -98,27 +97,7 @@ public class GamePanel extends JPanel implements Runnable{
 	 * 
 	 */
 	public void tick() {
-		requestFocusInWindow();
-//		if(k.checkKey("w")) {
-//			player.jump();
-//		}
-//		if(k.checkKey("a") && !k.checkKey("d")) {
-//			player.moveLeft();
-//		}
-//		if(k.checkKey("d") && !k.checkKey("a")) {
-//			player.moveRight();
-//		}
-//		if((!k.checkKey("d") && !k.checkKey("a")) || (k.checkKey("d") && k.checkKey("a"))) {
-//			player.stop();
-//		}
-//		for (Entity e : things) {
-//			e.update(platforms);
-//		}
 		
-		for (Entity e: things) {
-			e.update(platforms, things);
-		}
-		repaint();
 	}
 	
 	//Quits game if escape is pressed
@@ -179,9 +158,25 @@ public class GamePanel extends JPanel implements Runnable{
 			int delta_time = (int)((time - last_time)/1000000);
 			if(delta_time >= 10){
 			      last_time = time;
-			      /*if(k.checkKey()) {
-			    	  
-			      }*/
+			      requestFocusInWindow();
+					if(k.checkKey("left")){
+						player.moveLeft();
+					}
+					if(k.checkKey("right")){
+						player.moveRight();
+					}
+					if(k.checkKey("up")){
+						player.jump(platforms);
+					}
+					if(k.checkKey("down")) {
+						player.collect(things);
+					}
+					if (k.checkKey("escape")) {
+						quit();
+					}
+					for (Entity e: things) {
+						e.update(platforms, things);
+					}
 			      repaint();
 			}
 		}
@@ -189,21 +184,6 @@ public class GamePanel extends JPanel implements Runnable{
 		System.exit(0);
 	}
 	
-	//adds controls
-	private void buildKeys() {
-		this.addKeyListener(new KeyAdapter() {
-	        @Override
-	        public void keyPressed(KeyEvent e) {
-	            switch (e.getKeyCode()) {
-	            	case KeyEvent.VK_ESCAPE -> quit();
-	                case KeyEvent.VK_LEFT  -> player.moveLeft();
-	                case KeyEvent.VK_RIGHT -> player.moveRight();
-	                case KeyEvent.VK_UP -> player.jump(platforms);
-	                case KeyEvent.VK_DOWN -> player.collect(things);
-	            }
-	        }
-	        });
-	}
 	
 	public void increaseScore(int amount) {
 	    score += amount;
