@@ -16,13 +16,12 @@ import basePack.KeyHandler;
 public class Player extends Entity {
 	
 	//all subject to change
-	private static final int XACCELERATION = 20;
-	private static final int GACCELERATION = 10;
+	private static final int XACCELERATION = 10;	private static final int GACCELERATION = 5;
 
-	private static final int JUMPACCELERATION = -400;
-	private static final int MAXHORIZONTALVELO = 50;
+	private static final int JUMPACCELERATION = -165;
+	private static final int MAXHORIZONTALVELO = 40;
 	private static final int VERTICALKNOCKBACK = 40;
-	private static final int INVINCIBILITY = 60;
+	private static final int INVINCIBILITY = 120;
 	private KeyHandler k;
 	private GamePanel scoring;
 	private int iFrames;

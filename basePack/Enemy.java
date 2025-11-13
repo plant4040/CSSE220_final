@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 public class Enemy extends Entity {
 
 	private static final int GACCELERATION = 1;
-	private static final int MAXHORIZONTALVELO = 15;
+	private static final int MAXHORIZONTALVELO = 5;
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
 	private BufferedImage sprite;
@@ -28,7 +28,7 @@ public class Enemy extends Entity {
 		this.yPos = yPos;
 		this.height = height;
 		this.width = width;
-		this.xVelo = 5;
+		this.xVelo = 1;
 		this.yVelo = 0;
 		
 		try {

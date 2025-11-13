@@ -20,7 +20,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	private List<GroundPlatform> platforms;
 	private ArrayList<Entity> things= new ArrayList<Entity>();
-	private  Timer timer;
 	private Player player;
 	private Graphics2D g2d;
 	private Dimension screenRes = Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int windowHeight = (int)screenRes.getHeight();
 	Thread gameThread;
 	KeyHandler k;
-	private int lives=5;
+	private int lives= 5;
 	private int target=10;
 	private int score = 0;
 	JLabel label;
@@ -42,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 	    
 		//Initialize player
-		player = new Player(150, 0, 30, 60,this);
+		player = new Player(150, 800, 30, 60,this);
 	    
 		//Add controls
 		k = new KeyHandler();
@@ -64,32 +63,34 @@ public class GamePanel extends JPanel implements Runnable{
 
 	    // Adds platforms
 	    platforms.add(new GroundPlatform(0, windowHeight-75, windowWidth, 75));
-	    platforms.add(new GroundPlatform(300, 400, 250, 30));
-	    platforms.add(new GroundPlatform(600, 300, 150, 30));
+	    platforms.add(new GroundPlatform(350, 500, 300, 50));
+	    platforms.add(new GroundPlatform(150, 650, 200, 50));
+	    platforms.add(new GroundPlatform(750, 400, 200, 50));
+	    platforms.add(new GroundPlatform(1150,450,300,50));
+	    platforms.add(new GroundPlatform(1275,250,50,50));
+	    platforms.add(new GroundPlatform(425,300,150,50));
+	    platforms.add(new GroundPlatform(1050,windowHeight-325,50,250));
 	    
 	    //Adds our Player to list of entities
 	    things.add(player);
 	    
-	    //Adds an Enemy
-	    things.add(new Enemy(200,0,60,60));
-	    //things.add(new Enemy(400,0,60,60));
-	    //things.add(new Enemy(300,0,60,60));
+	    //Adds Enemies
+	    things.add(new Enemy(420,350,60,60));
+	    things.add(new Enemy(470,350,60,60));
+	    things.add(new Enemy(1150,350,60,60));
 	    
 	    //Adds Collectibles
-	    things.add(new Collectible (50,windowHeight-125,100,100));
-	    things.add(new Collectible (400,windowHeight-125,100,100));
+	    things.add(new Collectible (30,windowHeight-125,70,70));
+	    things.add(new Collectible (290,windowHeight-125,70,70));
+	    things.add(new Collectible (550,windowHeight-125,70,70));
+	    things.add(new Collectible (800,windowHeight-300,70,70));
+	    things.add(new Collectible (1280,windowHeight-125,70,70));
+	    things.add(new Collectible (465,250,70,70));
+	    things.add(new Collectible (215,600,70,70));
+	    things.add(new Collectible(815,350,70,70));
+	    things.add(new Collectible(1265,50,70,70));
+	    things.add(new Collectible(1265,400,70,70));
 	    
-//	    this.setLayout(new FlowLayout());
-//	    lives = 3;
-//		target = 10;
-//		score = 0;
-//		label = new JLabel();
-//		label.setText("<html>Lives: " + lives + "<br />Score: " + score + "<br />Target: " +  "</HTML>");
-//		this.add(label);
-	    
-	    //Creates and Starts Timer
-	    timer = new Timer(30, e -> tick());
-	    timer.start();
 	}
 	
 	/**
@@ -115,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		//draw stuff here or draw components here-------------------------------
-
+		
 		
 		for(Entity i: things) {
 	    	  //i.update(platforms);
@@ -134,6 +135,20 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawString("Lives: " + lives, 10, 65);
 		g.drawString("Target: " + target, 10, 100);
 		
+		if (lives <= 0) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, windowWidth, windowHeight);
+			g.setColor(Color.WHITE);
+			g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 100));
+			g.drawString("GAME OVER", windowWidth/2 - 300, windowHeight/2);
+		}
+		if (score >= target) {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, windowWidth, windowHeight);
+			g.setColor(Color.YELLOW);
+			g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 100));
+			g.drawString("YOU WIN!", windowWidth/2 - 245, windowHeight/2);
+		}
 		g2d.dispose();
 	}
 
