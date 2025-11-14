@@ -110,11 +110,11 @@ public class Player extends Entity {
 				// Horizontal movement and collision
 				if (notInBlock(xPos + xVelo/10, yPos, platforms)) {
 				    xPos += xVelo/10;
-				    if (xPos + width > ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth())) && xVelo > 0) {
+				    if (xPos + width > ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()))) {
 				    	xPos = 0;
 				    }
-				    else if (xPos < 0 && xVelo <0) {
-				    	xPos = ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()));
+				    else if (xPos < 0) {
+				    	xPos = ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth())) - width;
 				    }
 				    if(!notInBlock(xPos + xVelo/10, yPos+2, platforms)) {
 				        if(Math.abs(xVelo)-Math.abs(xVelo)/10 > 0) {		
