@@ -141,6 +141,7 @@ public class GamePanel extends JPanel implements Runnable{
 			g.setColor(Color.WHITE);
 			g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 100));
 			g.drawString("GAME OVER", windowWidth/2 - 300, windowHeight/2);
+			
 		}
 		if (score >= target) {
 			g.setColor(Color.WHITE);
