@@ -13,7 +13,6 @@ import java.util.List;
 import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import basePack.KeyHandler;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -46,15 +45,10 @@ public class GamePanel extends JPanel implements Runnable{
 		//Add controls
 		k = new KeyHandler();
 		this.addKeyListener(k);
-		
-		//this.addMouseListener(m);
-		//this.addMouseMotionListener(mm);
+
 		this.setFocusable(true);
 		this.setFocusTraversalKeysEnabled(false);
 		this.setVisible(true);
-		/*Jpanel panel1 = new Jpanel();
-		panel1.setOpaque(false);*/
-		
 		setFocusable(true);
 		requestFocusInWindow();
 		
@@ -90,15 +84,6 @@ public class GamePanel extends JPanel implements Runnable{
 	    things.add(new Collectible(815,350,70,70));
 	    things.add(new Collectible(1265,50,70,70));
 	    things.add(new Collectible(1265,400,70,70));
-	    
-	}
-	
-	/**
-	 * Updates all entities
-	 * 
-	 */
-	public void tick() {
-		
 	}
 	
 	//Quits game if escape is pressed
@@ -112,11 +97,9 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		//draw stuff here or draw components here-------------------------------
-		
 		
 		for(Entity i: things) {
 	    	  //i.update(platforms);
@@ -151,12 +134,6 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		g2d.dispose();
 	}
-
-	
-
-	//MouseHandler m = new MouseHandler();
-	//MouseMotionHandler mm = new MouseMotionHandler();
-	//if we need mouseHandler i can probably write a better implementation
 
 	//sets up the thread for the game
 	public void startGameThread() {

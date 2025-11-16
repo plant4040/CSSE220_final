@@ -17,16 +17,6 @@ public abstract class Entity {
 	protected int yVelo;
 	protected int height;
 	protected int width;
-	//protected int xAcc;
-	//protected int yAcc;
-	
-	protected int[] getPos() {
-		return new int[]{xPos,yPos};
-	}
-	
-	protected int[] getVel() {
-		return new int[]{xVelo,yVelo};
-	}
 	
 	public int getxPos() {
 		return xPos;
@@ -44,15 +34,9 @@ public abstract class Entity {
 		return height;
 	}
 	
-	/*protected int[] getAcc() {
-		return new int[]{xAcc,yAcc};
-	}*/
-	
 	protected void update(List<GroundPlatform> platforms, ArrayList<Entity> things) {
 		xPos+=xVelo;
 		yPos+=yVelo;
-		//xVelo+=xAcc;
-		//yVelo+=yAcc;
 	}
 	public void draw(Graphics g) {}
 }

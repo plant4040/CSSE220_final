@@ -23,14 +23,12 @@ public class GroundPlatform {
      this.width = width;
      this.height = height;
      
-     
-     
      try {
          sprite = ImageIO.read(GroundPlatform.class.getResource("New Piskel(2).png"));
          spriteLoaded = true;
-         } catch (IOException e) {
-         	spriteLoaded = false;
-         }
+     } catch (IOException e) {
+    	 spriteLoaded = false;
+     }
  }
  
  public int getX() {
@@ -51,18 +49,12 @@ public class GroundPlatform {
  
  
  public void draw(Graphics g) {
- 	
- 	int drawX = x;
- 	int drawY = y;
- 	int drawHeight = height;
- 	int drawWidth = width;
- 	
  	if (spriteLoaded) {
- 		g.drawImage(sprite, drawX, drawY, drawWidth,drawHeight, null );
+ 		g.drawImage(sprite, x, y, width, height, null);
  	}
  	else {
  		g.setColor(color);
- 		g.fillRect(drawX, drawY, drawWidth, drawHeight);
+ 		g.fillRect(x, y, width, height);
 
     }
    

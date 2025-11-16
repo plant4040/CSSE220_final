@@ -3,9 +3,7 @@ package basePack;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import java.awt.Image;
-
 import basePack.KeyHandler;
 
 /**
@@ -26,22 +23,17 @@ public class Player extends Entity {
 	
 	//all subject to change
 	private static final int XACCELERATION = 10;	private static final int GACCELERATION = 5;
-	
 	private ImageIcon walkGif;
 	private ImageIcon idleImage;
 	private boolean moving = false;
-	
 	private boolean facingRight = true;
-	
 	private static final int JUMPACCELERATION = -165;
 	private static final int MAXHORIZONTALVELO = 40;
 	private static final int VERTICALKNOCKBACK = 40;
 	private static final int INVINCIBILITY = 120;
-	private KeyHandler k;
 	private GamePanel scoring;
 	private int iFrames;
 	private static final int MAXVERTICALVELO = 1000;
-	private BufferedImage sprite;
 	boolean spriteLoaded = false;
 	
 	public Player(int xPos,int yPos, int width, int height, GamePanel scoring) {
@@ -51,7 +43,6 @@ public class Player extends Entity {
 		this.height = height;
 		this.xVelo = 0;
 		this.yVelo = 0;
-		this.k=new KeyHandler();
 		iFrames = 0;
 		this.scoring = scoring;
 		
@@ -233,12 +224,13 @@ public class Player extends Entity {
 	 */
 	public void draw(Graphics g) {
 		Image currentImage;
-		 
 	    if (moving && walkGif != null) {
 	        currentImage = walkGif.getImage();
-	    } else if (idleImage != null) {
+	    } 
+	    else if (idleImage != null) {
 	        currentImage = idleImage.getImage();
-	    } else {
+	    } 
+	    else {
 	    	g.setColor(Color.DARK_GRAY);
 	        g.fillRect(xPos, yPos, width, height);
 	        return;
@@ -246,7 +238,8 @@ public class Player extends Entity {
 	    Graphics2D g2d = (Graphics2D) g;
 		if (facingRight) {
 			g2d.drawImage(currentImage, xPos, yPos, width, height, null);
-		} else {
+		} 
+		else {
 			// flip horizontally when facing left
 			g2d.drawImage(currentImage, xPos + width, yPos, -width, height, null);
 		}

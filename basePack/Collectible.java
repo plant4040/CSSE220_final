@@ -7,10 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
- 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -29,7 +27,6 @@ public class Collectible extends Entity{
 		this.height = height;
 		this.xVelo = 0;
 		this.yVelo = 0;
-		
 		try {
 		    sprite = new ImageIcon(Player.class.getResource("FishCollect.gif"));
 		    spriteLoaded = true;
@@ -37,22 +34,6 @@ public class Collectible extends Entity{
 		catch (Exception e) {
 		    System.out.println("Error loading player images: " + e);
 		}
-	}
-	
-	public int getxPos() {
-		return xPos;
-	}
-	
-	public int getyPos() {
-		return yPos;
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-	
-	public int getHeight() {
-		return height;
 	}
 	
 	public void draw(Graphics g) {

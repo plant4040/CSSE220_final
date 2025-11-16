@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -17,7 +16,6 @@ import javax.imageio.ImageIO;
 public class Enemy extends Entity {
 
 	private static final int GACCELERATION = 1;
-	private static final int MAXHORIZONTALVELO = 5;
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
 	private BufferedImage sprite;
