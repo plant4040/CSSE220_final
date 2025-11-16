@@ -26,7 +26,7 @@ public class GroundPlatform {
      
      
      try {
-         sprite = ImageIO.read(GroundPlatform.class.getResource("Grass Block-1.png.png"));
+         sprite = ImageIO.read(GroundPlatform.class.getResource("New Piskel(2).png"));
          spriteLoaded = true;
          } catch (IOException e) {
          	spriteLoaded = false;

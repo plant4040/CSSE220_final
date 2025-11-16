@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+ 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import javax.imageio.ImageIO;
 
@@ -14,7 +19,7 @@ import javax.imageio.ImageIO;
  */
 public class Collectible extends Entity{
 	
-	private BufferedImage sprite;
+	private ImageIcon sprite;
 	boolean spriteLoaded = false;
 	
 	public Collectible(int xPos,int yPos, int width, int height) {
@@ -26,12 +31,12 @@ public class Collectible extends Entity{
 		this.yVelo = 0;
 		
 		try {
-	         sprite = ImageIO.read(GroundPlatform.class.getResource("Chicken Sandwich-1.png.png")); // Once sprite is added change na
-	         spriteLoaded = true;
-	    } 
-		catch (IOException e) {
-	         spriteLoaded = false;
-	    }
+		    sprite = new ImageIcon(Player.class.getResource("FishCollect.gif"));
+		    spriteLoaded = true;
+		}
+		catch (Exception e) {
+		    System.out.println("Error loading player images: " + e);
+		}
 	}
 	
 	public int getxPos() {
@@ -51,15 +56,13 @@ public class Collectible extends Entity{
 	}
 	
 	public void draw(Graphics g) {
-	 	Graphics2D g2d = (Graphics2D) g;
-	 	if (spriteLoaded) {
-	 		g.drawImage(sprite, xPos, yPos, width,height, null);
-	 	}
-	 	else {
-	 		g2d.setColor(Color.yellow);
-	 		g2d.fillRect(xPos, yPos, width, height);
-
-	    }
+		Graphics2D g2d = (Graphics2D) g;
+        if (spriteLoaded && sprite.getImage() != null) {
+            g.drawImage(sprite.getImage(), xPos, yPos, width, height, null);
+        } else {
+            g2d.setColor(Color.YELLOW);
+            g2d.fillRect(xPos, yPos, width, height);
+        }
 	   
 	 }
 	

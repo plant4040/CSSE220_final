@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel() {
 
 		this.setPreferredSize(new Dimension(windowWidth, windowHeight));
-		this.setBackground(Color.white);
+		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
 	    
 		//Initialize player
@@ -128,8 +128,7 @@ public class GamePanel extends JPanel implements Runnable{
             platform.draw(g2d);
         }
 		
-        g.setColor(Color.BLACK);
-		
+        g.setColor(Color.CYAN);
 		g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
 		g.drawString("Score: " + score, 10, 30);
 		g.drawString("Lives: " + lives, 10, 65);

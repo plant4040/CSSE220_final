@@ -32,7 +32,7 @@ public class Enemy extends Entity {
 		this.yVelo = 0;
 		
 		try {
-	         sprite = ImageIO.read(GroundPlatform.class.getResource("TheHamburglar.png"));
+	         sprite = ImageIO.read(GroundPlatform.class.getResource("BulldogEnemy.png"));
 	         spriteLoaded = true;
 	    } 
 		catch (IOException e) {

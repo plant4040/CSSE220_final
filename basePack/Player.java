@@ -13,6 +13,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 import basePack.KeyHandler;
 
@@ -24,7 +26,13 @@ public class Player extends Entity {
 	
 	//all subject to change
 	private static final int XACCELERATION = 10;	private static final int GACCELERATION = 5;
-
+	
+	private ImageIcon walkGif;
+	private ImageIcon idleImage;
+	private boolean moving = false;
+	
+	private boolean facingRight = true;
+	
 	private static final int JUMPACCELERATION = -165;
 	private static final int MAXHORIZONTALVELO = 40;
 	private static final int VERTICALKNOCKBACK = 40;
@@ -48,18 +56,19 @@ public class Player extends Entity {
 		this.scoring = scoring;
 		
 		try {
-	         sprite = ImageIO.read(GroundPlatform.class.getResource("ColonelSanders.png")); // Once sprite is added change na
-	         spriteLoaded = true;
-	    } 
-		catch (IOException e) {
-	         spriteLoaded = false;
-	    }
+		    walkGif = new ImageIcon(Player.class.getResource("Little cat walking.gif"));
+		    idleImage = new ImageIcon(Player.class.getResource("LittleCatIdle.png")); 
+		} catch (Exception e) {
+		    System.out.println("Error loading player images: " + e);
+		}
 	}
 	
 	/**
 	 * updates player's velocity if left arrow is clicked
 	 */
 	public void moveLeft() {
+		moving = true;
+		facingRight = false;
 		if (xVelo - XACCELERATION < -MAXHORIZONTALVELO) {
 			xVelo = -MAXHORIZONTALVELO;
 		}
@@ -73,6 +82,8 @@ public class Player extends Entity {
 	 * updates player's velocity if right arrow is clicked
 	 */
 	public void moveRight() {
+		moving = true;
+		facingRight = true;
 		if (xVelo+XACCELERATION > MAXHORIZONTALVELO) {
 			xVelo = MAXHORIZONTALVELO;
 		}
@@ -221,15 +232,24 @@ public class Player extends Entity {
 	 * draws player
 	 */
 	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-	 	if (spriteLoaded) {
-	 		g.drawImage(sprite, xPos, yPos, width,height, null);
-	 	}
-	 	else {
-	 		g2d.setColor(Color.DARK_GRAY);
-	 		g2d.fillRect(xPos, yPos, width, height);
-
+		Image currentImage;
+		 
+	    if (moving && walkGif != null) {
+	        currentImage = walkGif.getImage();
+	    } else if (idleImage != null) {
+	        currentImage = idleImage.getImage();
+	    } else {
+	    	g.setColor(Color.DARK_GRAY);
+	        g.fillRect(xPos, yPos, width, height);
+	        return;
 	    }
+	    Graphics2D g2d = (Graphics2D) g;
+		if (facingRight) {
+			g2d.drawImage(currentImage, xPos, yPos, width, height, null);
+		} else {
+			// flip horizontally when facing left
+			g2d.drawImage(currentImage, xPos + width, yPos, -width, height, null);
+		}
 	}
 	
 	/**
