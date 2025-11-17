@@ -19,7 +19,7 @@ public class Enemy extends Entity {
 	private static final int MAXVERTICALVELO = 100;
 	private boolean onGround;
 	private BufferedImage sprite;
-	boolean spriteLoaded = false;
+	private boolean spriteLoaded = false;
 	
 	public Enemy(int xPos, int yPos, int height, int width) {
 		this.xPos = xPos;
@@ -42,7 +42,7 @@ public class Enemy extends Entity {
 		xVelo = -xVelo;
 	}
 	
-	public boolean isGroundInFront(int x, int y, List<GroundPlatform> platforms) {
+	private boolean isGroundInFront(int x, int y, List<GroundPlatform> platforms) {
 		//check if ground is in front to see if enemy should turn around
 		if(xVelo < 0) {
 			for (GroundPlatform g : platforms) {

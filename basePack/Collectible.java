@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 public class Collectible extends Entity{
 	
 	private ImageIcon sprite;
-	boolean spriteLoaded = false;
+	private boolean spriteLoaded = false;
 	
 	public Collectible(int xPos,int yPos, int width, int height) {
 		this.xPos = xPos;

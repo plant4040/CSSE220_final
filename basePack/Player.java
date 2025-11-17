@@ -167,9 +167,9 @@ public class Player extends Entity {
 					}
 					else if (yVelo<0) { //Accounts for bumping head above
 						while (notInBlock(xPos,yPos,platforms)) {
-							yPos-=1;
+							yPos+=2;
 						}
-						yPos+=10;
+						yPos+=5;
 						//sets velo to zero after collision with block
 						yVelo = 0;
 					}
@@ -193,6 +193,10 @@ public class Player extends Entity {
 		//Updates iFrames
 		if (iFrames > 0) {
 			iFrames--;
+		}
+		
+		if (xVelo == 0) {
+			moving = false;
 		}
 
 	}
@@ -223,25 +227,27 @@ public class Player extends Entity {
 	 * draws player
 	 */
 	public void draw(Graphics g) {
-		Image currentImage;
-	    if (moving && walkGif != null) {
-	        currentImage = walkGif.getImage();
-	    } 
-	    else if (idleImage != null) {
-	        currentImage = idleImage.getImage();
-	    } 
-	    else {
-	    	g.setColor(Color.DARK_GRAY);
-	        g.fillRect(xPos, yPos, width, height);
-	        return;
-	    }
-	    Graphics2D g2d = (Graphics2D) g;
-		if (facingRight) {
-			g2d.drawImage(currentImage, xPos, yPos, width, height, null);
-		} 
-		else {
-			// flip horizontally when facing left
-			g2d.drawImage(currentImage, xPos + width, yPos, -width, height, null);
+		if (iFrames%2 == 0) {
+			Image currentImage;
+		    if (moving && walkGif != null) {
+		        currentImage = walkGif.getImage();
+		    } 
+		    else if (idleImage != null) {
+		        currentImage = idleImage.getImage();
+		    } 
+		    else {
+		    	g.setColor(Color.DARK_GRAY);
+		        g.fillRect(xPos, yPos, width, height);
+		        return;
+		    }
+		    Graphics2D g2d = (Graphics2D) g;
+			if (facingRight) {
+				g2d.drawImage(currentImage, xPos, yPos, width, height, null);
+			} 
+			else {
+				// flip horizontally when facing left
+				g2d.drawImage(currentImage, xPos + width, yPos, -width, height, null);
+			}
 		}
 	}
 	
