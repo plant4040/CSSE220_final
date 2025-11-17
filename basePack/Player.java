@@ -194,10 +194,6 @@ public class Player extends Entity {
 		if (iFrames > 0) {
 			iFrames--;
 		}
-		
-		if (xVelo == 0) {
-			moving = false;
-		}
 
 	}
 	
@@ -224,7 +220,7 @@ public class Player extends Entity {
 	}
 	
 	/**
-	 * draws player
+	 * draws player if sprite loaded and otherwise draws gray box
 	 */
 	public void draw(Graphics g) {
 		if (iFrames%2 == 0) {
@@ -301,6 +297,11 @@ public class Player extends Entity {
 		}
 	}
 	
+	/**
+	 * checks for collision with enemy
+	 * @param things
+	 * @return whether player is inside an enemy and should be hit
+	 */
 	public boolean inEnemy(ArrayList<Entity> things) {
 		for (Entity e: things) {
 			if (e.getClass().getName().equals("basePack.Enemy")){

@@ -3,7 +3,10 @@ package basePack;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
+/**
+ * @author Thomas White
+ * Handles key input from player, allows for multiple inputs at once
+ */
 public class KeyHandler implements KeyListener{
 
 ArrayList<String> k = new ArrayList<String>();

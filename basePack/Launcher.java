@@ -4,7 +4,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+/**
+ * @author Thomas White
+ * launches game
+ */
 public class Launcher {
 	
 	public static void main(String[] args) {

@@ -36,6 +36,9 @@ public class Collectible extends Entity{
 		}
 	}
 	
+	/**
+	 * draws collectible sprite if loaded or a yellow box if not
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
         if (spriteLoaded && sprite.getImage() != null) {

@@ -15,6 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import basePack.KeyHandler;
 
+/**
+ * @author Tom White
+ * handles visual elements of game
+ */
 public class GamePanel extends JPanel implements Runnable{
 	
 	private List<GroundPlatform> platforms;
@@ -73,16 +77,16 @@ public class GamePanel extends JPanel implements Runnable{
 	    things.add(new Enemy(1150,350,60,60));
 	    
 	    //Adds Collectibles
-	    things.add(new Collectible (30,windowHeight-125,70,70));
-	    things.add(new Collectible (290,windowHeight-125,70,70));
-	    things.add(new Collectible (550,windowHeight-125,70,70));
-	    things.add(new Collectible (800,windowHeight-300,70,70));
-	    things.add(new Collectible (1280,windowHeight-125,70,70));
-	    things.add(new Collectible (465,250,70,70));
-	    things.add(new Collectible (215,600,70,70));
-	    things.add(new Collectible(815,350,70,70));
-	    things.add(new Collectible(1265,50,70,70));
-	    things.add(new Collectible(1265,400,70,70));
+	    things.add(new Collectible (30,windowHeight-145,70,70));
+	    things.add(new Collectible (290,windowHeight-145,70,70));
+	    things.add(new Collectible (550,windowHeight-145,70,70));
+	    things.add(new Collectible (800,windowHeight-320,70,70));
+	    things.add(new Collectible (1280,windowHeight-145,70,70));
+	    things.add(new Collectible (465,230,70,70));
+	    things.add(new Collectible (215,580,70,70));
+	    things.add(new Collectible(815,330,70,70));
+	    things.add(new Collectible(1265,30,70,70));
+	    things.add(new Collectible(1265,380,70,70));
 	}
 	
 	//Quits game if escape is pressed
@@ -93,7 +97,10 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
-	
+	/**
+	 * paints all entities (players, collectibles, and enemies) along with ground platforms
+	 * and checks if the game has been won or lost and shows currect score, lives and target
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -175,11 +182,17 @@ public class GamePanel extends JPanel implements Runnable{
 		System.exit(0);
 	}
 	
-	
+	/**
+	 * increases score when collectible is collected
+	 * @param amount
+	 */
 	public void increaseScore(int amount) {
 	    score += amount;
 	}
 	
+	/**
+	 * decreases number of lives if hit by enemy
+	 */
 	public void hit() {
 		lives--;
 	}

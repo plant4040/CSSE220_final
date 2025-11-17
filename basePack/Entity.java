@@ -34,9 +34,19 @@ public abstract class Entity {
 		return height;
 	}
 	
+	/**
+	 * basic update method for changing position
+	 * @param platforms
+	 * @param things
+	 */
 	protected void update(List<GroundPlatform> platforms, ArrayList<Entity> things) {
 		xPos+=xVelo;
 		yPos+=yVelo;
 	}
+	
+	/**
+	 * basic draw method
+	 * @param g
+	 */
 	public void draw(Graphics g) {}
 }

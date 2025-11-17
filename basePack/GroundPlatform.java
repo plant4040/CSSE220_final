@@ -47,7 +47,9 @@ public class GroundPlatform {
 	 return width;
  }
  
- 
+ /**
+	 * draws ground platform sprite if loaded or a red box if not
+	 */
  public void draw(Graphics g) {
  	if (spriteLoaded) {
  		g.drawImage(sprite, x, y, width, height, null);

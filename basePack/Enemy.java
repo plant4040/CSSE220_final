@@ -38,10 +38,20 @@ public class Enemy extends Entity {
 	    }
 	}
 	
+	/**
+	 * flips direction enemy is going to stay on a platform
+	 */
 	public void turnAround() {
 		xVelo = -xVelo;
 	}
 	
+	/**
+	 * checks if there is ground in front to know whether the enemy should turn around
+	 * @param x
+	 * @param y
+	 * @param platforms
+	 * @return whether there is ground in front of the enemy
+	 */
 	private boolean isGroundInFront(int x, int y, List<GroundPlatform> platforms) {
 		//check if ground is in front to see if enemy should turn around
 		if(xVelo < 0) {
@@ -65,6 +75,9 @@ public class Enemy extends Entity {
 		return false;
 	}
 	
+	/**
+	 * updates position and velocity of enemy based on its current position and its surroundings
+	 */
 	@Override
 	public void update(List<GroundPlatform> platforms,ArrayList<Entity> e) {	
 		//may need to add in friction decrease in xVelo, may be different based on whether in the air or on the ground	
@@ -110,6 +123,13 @@ public class Enemy extends Entity {
 
 	}
 	
+	/**
+	 * checks if the enemy is in a block so as to handle collisions
+	 * @param x
+	 * @param y
+	 * @param platforms
+	 * @return
+	 */
 	private boolean notInBlock(int x, int y, List<GroundPlatform> platforms) {
 		for (GroundPlatform g : platforms) {
 			for (int i=0;i<=width;i++) {
@@ -125,6 +145,9 @@ public class Enemy extends Entity {
 		return true;
 	}
 	
+	/**
+	 * draws enemy sprite if loaded or a red box if not
+	 */
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 	 	if (spriteLoaded) {
